@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Authenticate\LoginRequest;
-use App\Repositories\Admin\Authenticate\AuthenticateRepositoryInterface;
+use App\Services\Admin\Authentication\AuthenticationServiceInterface;
 use Celysium\Response\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AuthenticateController extends Controller
 {
-    public function __construct(private readonly AuthenticateRepositoryInterface $authenticateRepository)
+    public function __construct(private readonly AuthenticationServiceInterface $authenticateRepository)
     {
     }
 
