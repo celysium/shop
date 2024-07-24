@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Enumerations\Product\Status;
-use App\Enumerations\Product\Type;
-use App\Enumerations\Product\Visibility;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -38,20 +35,11 @@ class Inventory extends Model
         'promoted_price',
         'promoted_activated_at',
         'promoted_expired_at',
-        'commodity',
-        'store',
-        'images',
-        'categories',
+        'cache',
     ];
 
     protected $casts = [
-        'type'       => Type::class,
-        'status'     => Status::class,
-        'visibility' => Visibility::class,
-        'commodity'  => 'array',
-        'store'      => 'array',
-        'images'     => 'array',
-        'categories' => 'array',
+        'cache'      => 'array',
     ];
 
     /**
