@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enumerations\Category\Status;
-use App\Enumerations\Category\Visiblity;
+use App\Enumerations\Category\Visibility;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +23,7 @@ use Illuminate\Support\Collection;
  * @property string $slug
  * @property string $description
  * @property Status $status
- * @property Visiblity $visible
+ * @property Visibility $visible
  * @property array $path
  * @property integer $level
  * @property integer $position
@@ -43,7 +43,7 @@ class Category extends Model
 
     protected $casts = [
         'path'    => 'array',
-        'visible' => Visiblity::class,
+        'visible' => Visibility::class,
         'status'  => Status::class
     ];
 
