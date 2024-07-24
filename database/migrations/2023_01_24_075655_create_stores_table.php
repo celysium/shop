@@ -22,7 +22,7 @@ return new class extends Migration
             $table->double('longitude')->nullable();
             $table->tinyText('detail')->nullable();
             $table->string('postcode')->nullable();
-            $table->string('plate_number')->nullable();
+            $table->string('plate')->nullable();
             $table->string('floor')->nullable();
             $table->string('unit')->nullable();
             $table->timestamps();
