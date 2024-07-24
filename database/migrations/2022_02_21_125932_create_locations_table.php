@@ -10,7 +10,7 @@ return new class extends Migration {
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('parent_id')->nullable()->constrained('province_cities');
+            $table->foreignId('parent_id')->nullable()->constrained('locations');
             $table->string('name')->index();
         });
     }
