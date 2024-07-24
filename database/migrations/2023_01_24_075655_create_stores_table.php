@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('image')->nullable();
-            $table->foreignId('province_id')->constrained('locations');
-            $table->foreignId('city_id')->constrained('locations');
+            $table->foreignId('province_id')->nullable()->constrained('locations');
+            $table->foreignId('city_id')->nullable()->constrained('locations');
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
-            $table->tinyText('detail');
+            $table->tinyText('detail')->nullable();
             $table->string('postcode')->nullable();
             $table->string('plate_number')->nullable();
             $table->string('floor')->nullable();
