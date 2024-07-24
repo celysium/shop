@@ -40,6 +40,7 @@ class Product extends Model
         'sku',
         'slug',
         'description',
+        'parent_id',
         'type',
         'status',
         'visibility',
@@ -58,6 +59,7 @@ class Product extends Model
 
     public function images(): HasMany
     {
-        return $this->hasMany(ProductImage::class, 'product_id');
+        return $this->hasMany(ProductImage::class, 'product_id')
+            ->orderBy('position');
     }
 }

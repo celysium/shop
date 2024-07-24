@@ -16,9 +16,10 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('sku')->unique();
+            $table->string('name')->unique()->fulltext();
+            $table->string('sku')->unique()->fulltext();
             $table->string('slug')->unique();
+            $table->foreignId('parent_id')->nullable()->constrained('products');
             $table->text('description')->nullable();
             $table->unsignedTinyInteger('type')->default(TYPE::SIMPLE);
             $table->unsignedTinyInteger('status')->default(STATUS::INACTIVE);
