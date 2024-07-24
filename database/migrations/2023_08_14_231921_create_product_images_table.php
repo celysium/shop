@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('path');
             $table->unsignedTinyInteger('position')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

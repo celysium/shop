@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enumerations\Product\Status;
 use App\Enumerations\Product\Type;
 use App\Enumerations\Product\Visibility;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -21,6 +22,9 @@ use Illuminate\Support\Collection;
  * @property Type $type
  * @property Status $status
  * @property Visibility $visibility
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property Carbon $deleted_at
  *
  * @property Product $parent
  * @property Collection<Category> $categories
