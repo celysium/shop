@@ -15,8 +15,8 @@ return new class extends Migration {
             $table->string('name');
             $table->foreignId('parent_id')->nullable()->constrained('categories');
             $table->string('slug')->unique();
-            $table->tinyInteger('visible')->default(Visibility::VISIBLE->value);
-            $table->tinyInteger('status')->default(Status::ACTIVE->value);
+            $table->tinyInteger('visible')->default(Visibility::VISIBLE);
+            $table->tinyInteger('status')->default(Status::ACTIVE);
             $table->json('path')->nullable();
             $table->string('icon')->nullable();
             $table->string('image')->nullable();
