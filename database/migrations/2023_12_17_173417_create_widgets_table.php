@@ -20,6 +20,13 @@ return new class extends Migration
             $table->tinyInteger('status')->default(Status::ACTIVE);
             $table->timestamps();
         });
+
+        Schema::create('product_widget', function (Blueprint $table) {
+            $table->foreignId('widget_id')->constrained('widgets');
+            $table->foreignId('product_id')->constrained('products');
+
+            $table->unique(['widget_id', 'product_id']);
+        });
     }
 
     /**
@@ -27,6 +34,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('product_widget');
         Schema::dropIfExists('widgets');
     }
 };
