@@ -39,8 +39,9 @@ class Address extends Model
         'unit',
         'is_default',
     ];
+
     protected $casts = [
-        'is_default' => 'boolean'
+        'is_default' => 'boolean',
     ];
 
     public function user(): BelongsTo
@@ -56,10 +57,5 @@ class Address extends Model
     public function city(): BelongsTo
     {
         return $this->belongsTo(Location::class);
-    }
-
-    protected static function newFactory(): AddressFactory
-    {
-        return AddressFactory::new();
     }
 }
