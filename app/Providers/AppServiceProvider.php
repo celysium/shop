@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Cart;
+use App\Observers\CartObserver;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\OTP\OTPRepository;
@@ -17,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->registerRepositories();
     }
 
     /**
@@ -38,5 +40,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(OTPRepositoryInterface::class, OTPRepository::class);
+    }
+
+    public function registerObserver()
+    {
+        Cart::observe(CartObserver::class);
     }
 }
