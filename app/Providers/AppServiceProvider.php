@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Repositories\Authentication\AuthenticationRepository;
-use App\Repositories\Authentication\AuthenticationRepositoryInterface;
+use App\Repositories\User\UserRepository;
+use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\OTP\OTPRepository;
 use App\Repositories\OTP\OTPRepositoryInterface;
 use App\Services\Admin\Authentication\AuthenticationService;
@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function registerRepositories(): void
     {
-        $this->app->bind(AuthenticationRepositoryInterface::class, AuthenticationRepository::class);
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(OTPRepositoryInterface::class, OTPRepository::class);
     }
 }

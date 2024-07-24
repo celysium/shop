@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\Authenticate;
+namespace App\Http\Requests\Admin\Authentication;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -9,7 +9,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email'    => ['required', 'email'],
+            'email'    => ['required', 'email', 'exists:users,email'],
             'password' => ['required', 'string']
         ];
     }

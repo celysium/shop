@@ -14,7 +14,7 @@ interface AuthenticationServiceInterface
 
     public function reset(array $parameters): array;
 
-    public function changePassword(array $parameters);
+    public function changePassword(array $parameters): User;
 
     public function setPassword(array $parameters);
 

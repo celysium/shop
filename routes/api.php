@@ -1,21 +1,25 @@
 <?php
 
-use App\Http\Controllers\Admin\AuthenticateController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Admin\AuthenticationController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
-    Route::prefix('auth')->name('auth.')->group(function () {
-        Route::post('login', [AuthenticateController::class,'login'])->name('login');
+    Route::name('auth.')->prefix('auth')->group(function () {
+        Route::post('login', [AuthenticationController::class, 'login'])->name('login');
+        Route::post('forget', [AuthenticationController::class, 'forget'])->name('forget');
+        Route::post('reset', [AuthenticationController::class, 'reset'])->name('reset');
+        Route::post('set-password', [AuthenticationController::class, 'setPassword'])->name('set-password');
     });
-});
 
-Route::prefix('admin')->name('admin.')->middleware('auth:sanctum')->group(function () {
-
-    Route::prefix('auth')->name('auth.')->group(function () {
-
-        Route::post('logout', [AuthenticateController::class,'logout'])->name('logout');
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::name('auth.')->prefix('auth')->group(function () {
+            Route::get('profile', [AuthenticationController::class, 'profile'])->name('profile');
+            Route::patch('profile', [AuthenticationController::class, 'update'])->name('update');
+            Route::post('change-password', [AuthenticationController::class, 'changePassword'])->name('change-password');
+            Route::post('logout', [AuthenticationController::class, 'logout'])->name('logout');
+        });
     });
+
 });
 

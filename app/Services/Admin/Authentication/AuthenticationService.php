@@ -3,16 +3,15 @@
 namespace App\Services\Admin\Authentication;
 
 use App\Models\User;
-use App\Repositories\Authentication\AuthenticationRepositoryInterface;
+use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\OTP\OTPRepositoryInterface;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
-class AuthenticationService implements AuthenticationServiceInterface
+readonly class AuthenticationService implements AuthenticationServiceInterface
 {
     public function __construct(
-        private readonly AuthenticationRepositoryInterface $authenticationRepository,
-        private readonly OTPRepositoryInterface            $otpRepository
+        private UserRepositoryInterface $userRepository,
+        private OTPRepositoryInterface  $otpRepository
     )
     {
 
@@ -21,15 +20,47 @@ class AuthenticationService implements AuthenticationServiceInterface
     /**
      * @param array $parameters
      * @return array
+     * @throws ValidationException
      */
     public function login(array $parameters): array
     {
-        return $this->authenticationRepository->login($parameters);
+        $user = $this->userRepository->findByEmail($parameters['email']);
+
+        $this->checkRole($user);
+
+        $this->userRepository->checkPassword($user, $parameters['password']);
+
+        return $this->getToken($user);
+    }
+
+    /**
+     * @param User $user
+     * @return void
+     * @throws ValidationException
+     */
+    private function checkRole(User $user): void
+    {
+        if (!$user->hasRoles('panel')) {
+            throw ValidationException::withMessages([
+                'email' => __('validation.exists', ['attribute' => __('validation.attributes.email')])
+            ]);
+        }
+    }
+
+    private function getToken(User $user): array
+    {
+        $token = $user->createToken('panel');
+        return [
+            'token' => $token->plainTextToken,
+        ];
     }
 
     public function logout(): void
     {
-        $this->authenticationRepository->logout();
+        /** @var User $token */
+        $user = auth()->user();
+        $token = $user->currentAccessToken();
+        $token->delete();
     }
 
 
@@ -39,9 +70,7 @@ class AuthenticationService implements AuthenticationServiceInterface
      */
     public function forget(array $parameters): array
     {
-        $this->authenticationRepository->forget($parameters);
-
-        $this->otpRepository->send($parameters['username']);
+        $this->otpRepository->send($parameters['email']);
 
         return [
             'retry_time' => env('VERIFICATION_RETRY_TIME', 60)
@@ -67,26 +96,42 @@ class AuthenticationService implements AuthenticationServiceInterface
      */
     public function setPassword(array $parameters): array
     {
-        return $this->authenticationRepository->setPassword($parameters);
+        $user = $this->userRepository->findByEmail(decrypt($parameters['token']));
+
+        $user = $this->userRepository->update($user, $parameters);
+
+        return $this->getToken($user);
     }
 
     /**
      * @param array $parameters
-     * @return bool
+     * @return User
      */
-    public function changePassword(array $parameters): bool
+    public function changePassword(array $parameters): User
     {
-        return $this->authenticationRepository->changePassword($parameters);
+        /** @var User $user */
+        $user = auth()->user();
+
+        if ($user->password) {
+            $this->userRepository->checkPassword($user, $parameters['current_password']);
+        }
+
+        return $this->userRepository->update($user, $parameters);
     }
 
     public function update(array $parameters): User
     {
-        return $this->authenticationRepository->update($parameters);
+        /** @var User $user */
+        $user = auth()->user();
+
+        return $this->userRepository->update($user, $parameters);
     }
 
     public function profile(): User
     {
-        return $this->authenticationRepository->profile();
+        /** @var User $user */
+        $user = auth()->user();
+        return $user->refresh();
     }
 
 }
