@@ -12,6 +12,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $slug
  * @property string $image
+ * @property int $city_id
+ * @property mixed $latitude
+ * @property mixed $longitude
+ * @property string $detail
+ * @property string $postcode
+ * @property string $plate
+ * @property string $floor
+ * @property string $unit
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Carbon $deleted_at
@@ -25,5 +33,14 @@ class Store extends Model
         'name',
         'slug',
         'image',
+        'province_id',
+        'city_id',
+        'latitude',
+        'longitude',
+        'detail',
+        'postcode',
+        'plate',
+        'floor',
+        'unit',
     ];
 }
