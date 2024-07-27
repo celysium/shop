@@ -24,7 +24,6 @@ return new class extends Migration {
             $table->unsignedBigInteger('promoted_price')->nullable();
             $table->timestamp('promoted_activated_at')->nullable();
             $table->timestamp('promoted_expired_at')->nullable();
-            $table->json('cache')->nullable();
             $table->timestamps();
 
             $table->unique(['product_id', 'store_id']);

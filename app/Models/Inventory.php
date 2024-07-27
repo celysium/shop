@@ -17,8 +17,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $promoted_activated_at
  * @property int $promoted_expired_at
  * @property int $promoted_price
- * @property array $images
- * @property array $categories
  * @property Product $product
  */
 class Inventory extends Model
@@ -35,11 +33,6 @@ class Inventory extends Model
         'promoted_price',
         'promoted_activated_at',
         'promoted_expired_at',
-        'cache',
-    ];
-
-    protected $casts = [
-        'cache'      => 'array',
     ];
 
     /**
