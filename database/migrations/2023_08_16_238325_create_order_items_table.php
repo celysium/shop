@@ -11,13 +11,14 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('order_id')->constrained('orders');
             $table->foreignId('product_id')->constrained('products');
+            $table->foreignId('store_id')->constrained('stores');
             $table->unsignedSmallInteger('quantity')->default(1);
             $table->unsignedBigInteger('buy_price');
             $table->unsignedBigInteger('original_price');
             $table->unsignedBigInteger('promoted_price')->nullable();
             $table->unsignedBigInteger('total_price')->default(0);
             $table->unsignedBigInteger('total_profit_price')->default(0);
-            $table->json('cache')->nullable();
+            $table->json('details')->nullable();
             $table->timestamps();
         });
     }

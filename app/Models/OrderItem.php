@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int id
  * @property int order_id
  * @property int product_id
+ * @property int store_id
  * @property int quantity
  * @property int buy_price
  * @property int original_price
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int total_price
  * @property int total_refunded_price
  * @property int total_profit_price
- * @property array $cache
+ * @property array $details
  *
  * @property Order $order
  * @property Product $product
@@ -30,17 +31,18 @@ class OrderItem extends Model
     protected $fillable = [
         'order_id',
         'product_id',
+        'store_id',
         'quantity',
         'buy_price',
         'original_price',
         'promoted_price',
         'total_price',
         'total_profit_price',
-        'cache'
+        'details'
     ];
 
     protected $casts = [
-        'cache' => 'array'
+        'details' => 'array'
     ];
 
     /**
@@ -59,11 +61,12 @@ class OrderItem extends Model
         return $this->belongsTo(Product::class);
     }
 
+
     /**
      * @return BelongsTo
      */
-    public function inventory(): BelongsTo
+    public function store(): BelongsTo
     {
-        return $this->belongsTo(Inventory::class, 'product_id', 'product_id');
+        return $this->belongsTo(Store::class);
     }
 }
