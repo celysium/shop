@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->foreignId('customer_id')->nullable()->constrained('users');
             $table->foreignId('address_id')->nullable()->constrained('addresses');
             $table->foreignId('delivery_id')->nullable()->constrained('deliveries');
-            $table->unsignedBigInteger('total_promotion_price')->default(0);
+            $table->unsignedBigInteger('total_sell_price')->default(0);
             $table->unsignedBigInteger('total_discount_price')->default(0);
             $table->unsignedBigInteger('total_price')->default(0);
             $table->json('items')->nullable();

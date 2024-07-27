@@ -15,11 +15,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $delivery_id
  * @property array $items
  * @property array $cache
- * @property int $total_promotion_price
+ * @property int $total_sell_price
  * @property int $total_discount_price
  * @property int $total_price
- *
- *
+ *k
  * @property User $customer
  * @property Address $address
  * @property Delivery $delivery
@@ -36,7 +35,7 @@ class Cart extends Model
         'address_id',
         'delivery_id',
         'items',
-        'total_promotion_price',
+        'total_sell_price',
         'total_discount_price',
         'total_price',
         'cache',
