@@ -17,7 +17,7 @@ use Illuminate\Support\Collection;
  * @property Category $parent
  * @property int $parent_id
  * @property int $id
- * @property string $title
+ * @property string $name
  * @property string $image
  * @property string $icon
  * @property string $slug
