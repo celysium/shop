@@ -11,7 +11,7 @@ class CartObserver
      */
     public function created(Cart $cart): void
     {
-        $this->fillCache($cart);
+        $this->fillDetails($cart);
     }
 
     /**
@@ -19,53 +19,12 @@ class CartObserver
      */
     public function updated(Cart $cart): void
     {
-        $this->fillCache($cart);
+        $this->fillDetails($cart);
     }
 
-    public function fillCache(Cart $cart): void
+    public function fillDetails(Cart $cart): void
     {
-        $changed = false;
-        if ($customer = $cart->customer) {
-            $changed = true;
-            $cart->cache = array_merge($cart->cache, [
-                'customer' => $customer->only([
-                    'mobile',
-                    'firstname',
-                    'lastname',
-                    'avatar',
-                    'gender',
-                    'status',
-                ])
-            ]);
-        }
-        if ($address = $cart->address) {
-            $changed = true;
-            $cart->cache = array_merge($cart->cache, [
-                'address' => $address->only([
-                    'latitude',
-                    'longitude',
-                    'detail',
-                    'postcode',
-                    'plate',
-                    'floor',
-                    'unit',
-                    'province',
-                    'city',
-                ])
-            ]);
-        }
-        if ($delivery = $cart->delivery) {
-            $changed = true;
-            $cart->cache = array_merge($cart->cache, [
-                'deliver' => $delivery->only([
-                    'name',
-                    'driver',
-                    'price',
-                ])
-            ]);
-        }
-        if ($changed) {
-            $cart->save();
-        }
+        $cart->details = data_get($cart->load($cart->detailFields)->toArray(), $cart->detailFields);
+        $cart->save();
     }
 }

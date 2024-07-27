@@ -61,6 +61,9 @@ class Cart extends Model
         'address.province.name',
         'address.city.id',
         'address.city.name',
+        'delivery.name',
+        'delivery.driver',
+        'delivery.price',
     ];
 
     public function customer(): BelongsTo
