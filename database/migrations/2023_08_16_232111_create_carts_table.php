@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('total_discount_price')->default(0);
             $table->unsignedBigInteger('total_price')->default(0);
             $table->json('items')->nullable();
-            $table->json('cache')->nullable();
+            $table->json('details')->nullable();
             $table->timestamps();
         });
     }

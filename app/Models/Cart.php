@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $address_id
  * @property int $delivery_id
  * @property array $items
- * @property array $cache
+ * @property array $details
  * @property int $total_sell_price
  * @property int $total_discount_price
  * @property int $total_price
@@ -38,12 +38,29 @@ class Cart extends Model
         'total_sell_price',
         'total_discount_price',
         'total_price',
-        'cache',
+        'details',
     ];
 
     protected $casts = [
-        'cache' => 'array',
+        'details' => 'array',
         'items' => 'array',
+    ];
+
+    public array $detailFields = [
+        'customer.mobile',
+        'customer.firstname',
+        'customer.lastname',
+        'address.latitude',
+        'address.longitude',
+        'address.detail',
+        'address.postcode',
+        'address.plate',
+        'address.floor',
+        'address.unit',
+        'address.province.id',
+        'address.province.name',
+        'address.city.id',
+        'address.city.name',
     ];
 
     public function customer(): BelongsTo
