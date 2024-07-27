@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $delivery_id
  * @property array $items
  * @property array $details
- * @property int $total_sell_price
+ * @property int $total_promoted_price
  * @property int $total_discount_price
  * @property int $total_price
  *k
@@ -35,7 +35,7 @@ class Cart extends Model
         'address_id',
         'delivery_id',
         'items',
-        'total_sell_price',
+        'total_promoted_price',
         'total_discount_price',
         'total_price',
         'details',
