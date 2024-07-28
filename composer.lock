@@ -137,16 +137,16 @@
         },
         {
             "name": "celysium/helper",
-            "version": "v3.5",
+            "version": "v3.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/celysium/helper.git",
-                "reference": "4f44577836f982a91ad44ed86b78668eadb65969"
+                "reference": "35a478a5a08a6ff07a5af709a5fa9924b3b3d526"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/celysium/helper/zipball/4f44577836f982a91ad44ed86b78668eadb65969",
-                "reference": "4f44577836f982a91ad44ed86b78668eadb65969",
+                "url": "https://api.github.com/repos/celysium/helper/zipball/35a478a5a08a6ff07a5af709a5fa9924b3b3d526",
+                "reference": "35a478a5a08a6ff07a5af709a5fa9924b3b3d526",
                 "shasum": ""
             },
             "require": {
@@ -185,9 +185,9 @@
             ],
             "support": {
                 "issues": "https://github.com/celysium/helper/issues",
-                "source": "https://github.com/celysium/helper/tree/v3.5"
+                "source": "https://github.com/celysium/helper/tree/v3.5.1"
             },
-            "time": "2024-07-27T14:40:00+00:00"
+            "time": "2024-07-28T05:33:51+00:00"
         },
         {
             "name": "celysium/permissions",
