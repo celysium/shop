@@ -20,7 +20,7 @@ class CategoryRepository extends BaseRepository
         /** @var Category $category */
         $category = $this->model->newQuery()->create($parameters);
 
-        $this->fillAttribute($category);
+        $this->fillAttributes($category, $parameters);
 
         return $category->refresh();
     }
@@ -31,12 +31,12 @@ class CategoryRepository extends BaseRepository
 
         $model->update($parameters);
 
-        $this->fillAttribute($model);
+        $this->fillAttributes($model, $parameters);
 
         return $model->refresh();
     }
 
-    private function fillAttribute(Model $model): void
+    private function fillAttributes(Model $model, array $parameters): void
     {
         /** @var Category $model */
         $category = $model;
@@ -44,9 +44,11 @@ class CategoryRepository extends BaseRepository
         $category->path = array_merge($parent ? $parent->path : [], [$category->only(['id', 'name'])]);
         $category->level = $parent ? $parent->level + 1 : 0;
         $category->slug = slug($category->name);
+        $category->icon = isset($parameters['icon']) ? storageStore($parameters['icon']) : $category->icon;
+        $category->image = isset($parameters['image']) ? storageStore($parameters['image']) : $category->image;
         $category->save();
         foreach ($category->children as $child) {
-            $this->fillAttribute($child);
+            $this->fillAttributes($child, []);
         }
     }
 
