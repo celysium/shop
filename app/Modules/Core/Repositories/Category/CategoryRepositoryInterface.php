@@ -2,7 +2,7 @@
 
 namespace App\Modules\Core\Repositories\Category;
 
-use Celysium\Helper\Repository\BaseRepositoryInterface;
+use Celysium\Helper\Contracts\BaseRepositoryInterface;
 
 interface CategoryRepositoryInterface extends BaseRepositoryInterface
 {

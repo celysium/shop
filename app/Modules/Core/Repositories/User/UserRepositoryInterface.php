@@ -3,13 +3,11 @@
 namespace App\Modules\Core\Repositories\User;
 
 use App\Modules\Core\Models\User;
+use Celysium\Helper\Contracts\BaseRepositoryInterface;
 
-interface UserRepositoryInterface
+interface UserRepositoryInterface extends BaseRepositoryInterface
 {
-    public function findByEmail(string $email): User;
 
     public function checkPassword(User $user, string $password): void;
-
-    public function update(User $user, array $parameters): User;
 
 }

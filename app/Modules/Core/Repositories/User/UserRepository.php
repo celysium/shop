@@ -3,21 +3,13 @@
 namespace App\Modules\Core\Repositories\User;
 
 use App\Modules\Core\Models\User;
+use Celysium\Helper\Repository\BaseRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
-class UserRepository implements UserRepositoryInterface
+class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
-    /**
-     * @param string $email
-     * @return User
-     */
-    public function findByEmail(string $email): User
-    {
-        /** @var User $user */
-        $user = User::query()->where('email', $email)->first();
-        return $user;
-    }
+    protected static string $entity = User::class;
 
     /**
      * @param User $user
@@ -32,12 +24,5 @@ class UserRepository implements UserRepositoryInterface
                 'password' => __('validation.exists', ['attribute' => __('validation.attributes.password')])
             ]);
         }
-    }
-
-    public function update(User $user, array $parameters): User
-    {
-        $user->update($parameters);
-
-        return $user->refresh();
     }
 }

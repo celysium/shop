@@ -34,9 +34,9 @@ class OTPRepository implements OTPRepositoryInterface
 
         } else {
             $passwordToken = new PasswordToken();
+            $passwordToken->username = $username;
             $passwordToken->token = $this->getToken();
         }
-        $passwordToken->username = $username;
         $passwordToken->sent_at = now();
         $passwordToken->tries++;
         $passwordToken->save();

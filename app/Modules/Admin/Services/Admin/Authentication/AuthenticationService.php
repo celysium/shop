@@ -24,7 +24,8 @@ readonly class AuthenticationService implements AuthenticationServiceInterface
      */
     public function login(array $parameters): array
     {
-        $user = $this->userRepository->findByEmail($parameters['email']);
+        /** @var User $user */
+        $user = $this->userRepository->findByField('email', $parameters['email']);
 
         $this->checkRole($user);
 
@@ -96,8 +97,10 @@ readonly class AuthenticationService implements AuthenticationServiceInterface
      */
     public function setPassword(array $parameters): array
     {
-        $user = $this->userRepository->findByEmail(decrypt($parameters['token']));
+        /** @var User $user */
+        $user = $this->userRepository->findByField('email', decrypt($parameters['token']));
 
+        /** @var User $user */
         $user = $this->userRepository->update($user, $parameters);
 
         return $this->getToken($user);
@@ -116,7 +119,9 @@ readonly class AuthenticationService implements AuthenticationServiceInterface
             $this->userRepository->checkPassword($user, $parameters['current_password']);
         }
 
-        return $this->userRepository->update($user, $parameters);
+        /** @var User $user */
+        $user = $this->userRepository->update($user, $parameters);
+        return $user;
     }
 
     public function update(array $parameters): User
@@ -124,7 +129,9 @@ readonly class AuthenticationService implements AuthenticationServiceInterface
         /** @var User $user */
         $user = auth()->user();
 
-        return $this->userRepository->update($user, $parameters);
+        /** @var User $user */
+        $user = $this->userRepository->update($user, $parameters);
+        return $user;
     }
 
     public function profile(): User

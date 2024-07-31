@@ -8,10 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoryRepository extends BaseRepository
 {
-    public function __construct(Category $model)
-    {
-        parent::__construct($model);
-    }
+    protected static string $entity = Category::class;
 
     public function store(array $parameters): Model
     {
