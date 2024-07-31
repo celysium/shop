@@ -28,6 +28,8 @@ use App\Modules\Core\Repositories\PasswordToken\PasswordTokenRepository;
 use App\Modules\Core\Repositories\PasswordToken\PasswordTokenRepositoryInterface;
 use App\Modules\Core\Repositories\Payment\PaymentRepository;
 use App\Modules\Core\Repositories\Payment\PaymentRepositoryInterface;
+use App\Modules\Core\Repositories\Product\ProductRepository;
+use App\Modules\Core\Repositories\Product\ProductRepositoryInterface;
 use App\Modules\Core\Repositories\User\UserRepository;
 use App\Modules\Core\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -57,6 +59,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->bind(OrderItemRepositoryInterface::class, OrderItemRepository::class);
         $this->app->bind(PasswordTokenRepositoryInterface::class, PasswordTokenRepository::class);
         $this->app->bind(PaymentRepositoryInterface::class, PaymentRepository::class);
+        $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 
