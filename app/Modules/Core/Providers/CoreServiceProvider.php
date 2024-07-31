@@ -20,6 +20,8 @@ use App\Modules\Core\Repositories\Inventory\InventoryRepository;
 use App\Modules\Core\Repositories\Inventory\InventoryRepositoryInterface;
 use App\Modules\Core\Repositories\Location\LocationRepository;
 use App\Modules\Core\Repositories\Location\LocationRepositoryInterface;
+use App\Modules\Core\Repositories\Order\OrderRepository;
+use App\Modules\Core\Repositories\Order\OrderRepositoryInterface;
 use App\Modules\Core\Repositories\OTP\OTPRepository;
 use App\Modules\Core\Repositories\OTP\OTPRepositoryInterface;
 use App\Modules\Core\Repositories\User\UserRepository;
@@ -47,6 +49,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->bind(DeliveryRepositoryInterface::class, DeliveryRepository::class);
         $this->app->bind(InventoryRepositoryInterface::class, InventoryRepository::class);
         $this->app->bind(LocationRepositoryInterface::class, LocationRepository::class);
+        $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(OTPRepositoryInterface::class, OTPRepository::class);
     }
