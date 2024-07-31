@@ -8,6 +8,8 @@ use App\Modules\Core\Repositories\Address\AddressRepository;
 use App\Modules\Core\Repositories\Address\AddressRepositoryInterface;
 use App\Modules\Core\Repositories\Banner\BannerRepository;
 use App\Modules\Core\Repositories\Banner\BannerRepositoryInterface;
+use App\Modules\Core\Repositories\Cart\CartRepository;
+use App\Modules\Core\Repositories\Cart\CartRepositoryInterface;
 use App\Modules\Core\Repositories\Category\CategoryRepository;
 use App\Modules\Core\Repositories\Category\CategoryRepositoryInterface;
 use App\Modules\Core\Repositories\OTP\OTPRepository;
@@ -30,6 +32,7 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->app->bind(AddressRepositoryInterface::class, AddressRepository::class);
         $this->app->bind(BannerRepositoryInterface::class, BannerRepository::class);
+        $this->app->bind(CartRepositoryInterface::class, CartRepository::class);
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(OTPRepositoryInterface::class, OTPRepository::class);
