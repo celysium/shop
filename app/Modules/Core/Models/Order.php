@@ -15,7 +15,7 @@ use Ramsey\Collection\Collection;
  * @property int address_id
  * @property int delivery_id
  * @property int status
- * @property array cache
+ * @property array details
  * @property int total_buy_price
  * @property int total_promotion_price
  * @property int total_discount_price
@@ -43,12 +43,12 @@ class Order extends Model
         'total_discount_price',
         'total_price',
         'total_profit_price',
-        'cache',
+        'details',
     ];
 
     protected $casts = [
         'status'  => Status::class,
-        'cache' => 'array',
+        'details' => 'array',
     ];
 
     public function customer(): BelongsTo
