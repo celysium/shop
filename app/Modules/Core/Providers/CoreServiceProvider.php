@@ -26,6 +26,8 @@ use App\Modules\Core\Repositories\OrderItem\OrderItemRepository;
 use App\Modules\Core\Repositories\OrderItem\OrderItemRepositoryInterface;
 use App\Modules\Core\Repositories\PasswordToken\PasswordTokenRepository;
 use App\Modules\Core\Repositories\PasswordToken\PasswordTokenRepositoryInterface;
+use App\Modules\Core\Repositories\Payment\PaymentRepository;
+use App\Modules\Core\Repositories\Payment\PaymentRepositoryInterface;
 use App\Modules\Core\Repositories\User\UserRepository;
 use App\Modules\Core\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -43,12 +45,6 @@ class CoreServiceProvider extends ServiceProvider
 
     public function registerRepositories(): void
     {
-        $path = "App\\Modules\\Core\\Repositories\\";
-        $directories = new \RecursiveDirectoryIterator($path);
-
-        foreach ($directories as $model) {
-            $this->app->bind("{$model}\\{$model}RepositoryInterface", "{$model}\\{$model}Repository");
-        }
         $this->app->bind(AddressRepositoryInterface::class, AddressRepository::class);
         $this->app->bind(BannerRepositoryInterface::class, BannerRepository::class);
         $this->app->bind(CartRepositoryInterface::class, CartRepository::class);
@@ -60,6 +56,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
         $this->app->bind(OrderItemRepositoryInterface::class, OrderItemRepository::class);
         $this->app->bind(PasswordTokenRepositoryInterface::class, PasswordTokenRepository::class);
+        $this->app->bind(PaymentRepositoryInterface::class, PaymentRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 
