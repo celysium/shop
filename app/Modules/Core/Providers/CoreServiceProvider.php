@@ -18,6 +18,8 @@ use App\Modules\Core\Repositories\Delivery\DeliveryRepository;
 use App\Modules\Core\Repositories\Delivery\DeliveryRepositoryInterface;
 use App\Modules\Core\Repositories\Inventory\InventoryRepository;
 use App\Modules\Core\Repositories\Inventory\InventoryRepositoryInterface;
+use App\Modules\Core\Repositories\Location\LocationRepository;
+use App\Modules\Core\Repositories\Location\LocationRepositoryInterface;
 use App\Modules\Core\Repositories\OTP\OTPRepository;
 use App\Modules\Core\Repositories\OTP\OTPRepositoryInterface;
 use App\Modules\Core\Repositories\User\UserRepository;
@@ -44,11 +46,12 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->bind(ConstantRepositoryInterface::class, ConstantRepository::class);
         $this->app->bind(DeliveryRepositoryInterface::class, DeliveryRepository::class);
         $this->app->bind(InventoryRepositoryInterface::class, InventoryRepository::class);
+        $this->app->bind(LocationRepositoryInterface::class, LocationRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(OTPRepositoryInterface::class, OTPRepository::class);
     }
 
-    public function registerObserver()
+    public function registerObserver(): void
     {
         Cart::observe(CartObserver::class);
     }
