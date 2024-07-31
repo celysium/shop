@@ -32,6 +32,8 @@ use App\Modules\Core\Repositories\Product\ProductRepository;
 use App\Modules\Core\Repositories\Product\ProductRepositoryInterface;
 use App\Modules\Core\Repositories\ProductImage\ProductImageRepository;
 use App\Modules\Core\Repositories\ProductImage\ProductImageRepositoryInterface;
+use App\Modules\Core\Repositories\ProductIndex\ProductIndexRepository;
+use App\Modules\Core\Repositories\ProductIndex\ProductIndexRepositoryInterface;
 use App\Modules\Core\Repositories\ProductWidget\ProductWidgetRepository;
 use App\Modules\Core\Repositories\ProductWidget\ProductWidgetRepositoryInterface;
 use App\Modules\Core\Repositories\Slider\SliderRepository;
@@ -71,6 +73,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->bind(PaymentRepositoryInterface::class, PaymentRepository::class);
         $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
         $this->app->bind(ProductImageRepositoryInterface::class, ProductImageRepository::class);
+        $this->app->bind(ProductIndexRepositoryInterface::class, ProductIndexRepository::class);
         $this->app->bind(ProductWidgetRepositoryInterface::class, ProductWidgetRepository::class);
         $this->app->bind(SliderRepositoryInterface::class, SliderRepository::class);
         $this->app->bind(StoreRepositoryInterface::class, StoreRepository::class);
