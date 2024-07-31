@@ -40,6 +40,8 @@ use App\Modules\Core\Repositories\Store\StoreRepository;
 use App\Modules\Core\Repositories\Store\StoreRepositoryInterface;
 use App\Modules\Core\Repositories\User\UserRepository;
 use App\Modules\Core\Repositories\User\UserRepositoryInterface;
+use App\Modules\Core\Repositories\Widget\WidgetRepository;
+use App\Modules\Core\Repositories\Widget\WidgetRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class CoreServiceProvider extends ServiceProvider
@@ -73,6 +75,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->bind(SliderRepositoryInterface::class, SliderRepository::class);
         $this->app->bind(StoreRepositoryInterface::class, StoreRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(WidgetRepositoryInterface::class, WidgetRepository::class);
     }
 
     public function registerObserver(): void
