@@ -12,6 +12,10 @@ use App\Modules\Core\Repositories\Cart\CartRepository;
 use App\Modules\Core\Repositories\Cart\CartRepositoryInterface;
 use App\Modules\Core\Repositories\Category\CategoryRepository;
 use App\Modules\Core\Repositories\Category\CategoryRepositoryInterface;
+use App\Modules\Core\Repositories\Constant\ConstantRepository;
+use App\Modules\Core\Repositories\Constant\ConstantRepositoryInterface;
+use App\Modules\Core\Repositories\Constant\DeliveryRepository;
+use App\Modules\Core\Repositories\Delivery\DeliveryRepositoryInterface;
 use App\Modules\Core\Repositories\OTP\OTPRepository;
 use App\Modules\Core\Repositories\OTP\OTPRepositoryInterface;
 use App\Modules\Core\Repositories\User\UserRepository;
@@ -26,6 +30,7 @@ class CoreServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->registerRepositories();
+        $this->registerObserver();
     }
 
     public function registerRepositories(): void
@@ -34,6 +39,8 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->bind(BannerRepositoryInterface::class, BannerRepository::class);
         $this->app->bind(CartRepositoryInterface::class, CartRepository::class);
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
+        $this->app->bind(ConstantRepositoryInterface::class, ConstantRepository::class);
+        $this->app->bind(DeliveryRepositoryInterface::class, DeliveryRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(OTPRepositoryInterface::class, OTPRepository::class);
     }

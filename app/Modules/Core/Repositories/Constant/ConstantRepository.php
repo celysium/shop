@@ -9,7 +9,7 @@ class ConstantRepository extends BaseRepository
 {
     protected static string $entity = Constant::class;
 
-    public static function value(string $key, $default = null)
+    public static function value(string $key, $default = null): mixed
     {
         return (new static::$entity)::query()
             ->where('key', $key)
