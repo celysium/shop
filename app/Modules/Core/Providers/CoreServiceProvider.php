@@ -36,6 +36,8 @@ use App\Modules\Core\Repositories\ProductWidget\ProductWidgetRepository;
 use App\Modules\Core\Repositories\ProductWidget\ProductWidgetRepositoryInterface;
 use App\Modules\Core\Repositories\Slider\SliderRepository;
 use App\Modules\Core\Repositories\Slider\SliderRepositoryInterface;
+use App\Modules\Core\Repositories\Store\StoreRepository;
+use App\Modules\Core\Repositories\Store\StoreRepositoryInterface;
 use App\Modules\Core\Repositories\User\UserRepository;
 use App\Modules\Core\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -69,6 +71,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->bind(ProductImageRepositoryInterface::class, ProductImageRepository::class);
         $this->app->bind(ProductWidgetRepositoryInterface::class, ProductWidgetRepository::class);
         $this->app->bind(SliderRepositoryInterface::class, SliderRepository::class);
+        $this->app->bind(StoreRepositoryInterface::class, StoreRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 
