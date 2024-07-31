@@ -6,8 +6,8 @@ use App\Modules\Admin\Services\Admin\Authentication\AuthenticationService;
 use App\Modules\Admin\Services\Admin\Authentication\AuthenticationServiceInterface;
 use App\Modules\Core\Models\Cart;
 use App\Modules\Core\Observers\CartObserver;
-use App\Modules\Core\Repositories\OTP\OTPRepository;
-use App\Modules\Core\Repositories\OTP\OTPRepositoryInterface;
+use App\Modules\Core\Repositories\PasswordToken\PasswordTokenRepository;
+use App\Modules\Core\Repositories\PasswordToken\PasswordTokenRepositoryInterface;
 use App\Modules\Core\Repositories\User\UserRepository;
 use App\Modules\Core\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -39,7 +39,7 @@ class AminServiceProvider extends ServiceProvider
     public function registerRepositories(): void
     {
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
-        $this->app->bind(OTPRepositoryInterface::class, OTPRepository::class);
+        $this->app->bind(PasswordTokenRepositoryInterface::class, PasswordTokenRepository::class);
     }
 
     public function registerObserver()

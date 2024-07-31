@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Modules\Core\Repositories\OTP;
+namespace App\Modules\Core\Repositories\PasswordToken;
 
-interface OTPRepositoryInterface
+interface PasswordTokenRepositoryInterface
 {
     public function send(string $username): void;
 

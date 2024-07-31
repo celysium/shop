@@ -22,8 +22,10 @@ use App\Modules\Core\Repositories\Location\LocationRepository;
 use App\Modules\Core\Repositories\Location\LocationRepositoryInterface;
 use App\Modules\Core\Repositories\Order\OrderRepository;
 use App\Modules\Core\Repositories\Order\OrderRepositoryInterface;
-use App\Modules\Core\Repositories\OTP\OTPRepository;
-use App\Modules\Core\Repositories\OTP\OTPRepositoryInterface;
+use App\Modules\Core\Repositories\OrderItem\OrderItemRepository;
+use App\Modules\Core\Repositories\OrderItem\OrderItemRepositoryInterface;
+use App\Modules\Core\Repositories\PasswordToken\PasswordTokenRepository;
+use App\Modules\Core\Repositories\PasswordToken\PasswordTokenRepositoryInterface;
 use App\Modules\Core\Repositories\User\UserRepository;
 use App\Modules\Core\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -41,6 +43,12 @@ class CoreServiceProvider extends ServiceProvider
 
     public function registerRepositories(): void
     {
+        $path = "App\\Modules\\Core\\Repositories\\";
+        $directories = new \RecursiveDirectoryIterator($path);
+
+        foreach ($directories as $model) {
+            $this->app->bind("{$model}\\{$model}RepositoryInterface", "{$model}\\{$model}Repository");
+        }
         $this->app->bind(AddressRepositoryInterface::class, AddressRepository::class);
         $this->app->bind(BannerRepositoryInterface::class, BannerRepository::class);
         $this->app->bind(CartRepositoryInterface::class, CartRepository::class);
@@ -50,8 +58,9 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->bind(InventoryRepositoryInterface::class, InventoryRepository::class);
         $this->app->bind(LocationRepositoryInterface::class, LocationRepository::class);
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
+        $this->app->bind(OrderItemRepositoryInterface::class, OrderItemRepository::class);
+        $this->app->bind(PasswordTokenRepositoryInterface::class, PasswordTokenRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
-        $this->app->bind(OTPRepositoryInterface::class, OTPRepository::class);
     }
 
     public function registerObserver(): void

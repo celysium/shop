@@ -3,7 +3,7 @@
 namespace App\Modules\Admin\Services\Admin\Authentication;
 
 use App\Modules\Core\Models\User;
-use App\Modules\Core\Repositories\OTP\OTPRepositoryInterface;
+use App\Modules\Core\Repositories\PasswordToken\PasswordTokenRepositoryInterface;
 use App\Modules\Core\Repositories\User\UserRepositoryInterface;
 use Illuminate\Validation\ValidationException;
 
@@ -11,7 +11,7 @@ readonly class AuthenticationService implements AuthenticationServiceInterface
 {
     public function __construct(
         private UserRepositoryInterface $userRepository,
-        private OTPRepositoryInterface  $otpRepository
+        private PasswordTokenRepositoryInterface $passwordTokenRepository
     )
     {
 
@@ -71,7 +71,7 @@ readonly class AuthenticationService implements AuthenticationServiceInterface
      */
     public function forget(array $parameters): array
     {
-        $this->otpRepository->send($parameters['email']);
+        $this->passwordTokenRepository->send($parameters['email']);
 
         return [
             'retry_time' => env('VERIFICATION_RETRY_TIME', 60)
@@ -84,7 +84,7 @@ readonly class AuthenticationService implements AuthenticationServiceInterface
      */
     public function reset(array $parameters): array
     {
-        $this->otpRepository->check($parameters['email'], $parameters['token']);
+        $this->passwordTokenRepository->check($parameters['email'], $parameters['token']);
 
         return [
             'token' => encrypt($parameters['email'])

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Modules\Core\Repositories\OTP;
+namespace App\Modules\Core\Repositories\PasswordToken;
 
 use App\Modules\Admin\Jobs\SendOTPJob;
 use App\Modules\Core\Models\PasswordToken;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 
-class OTPRepository implements OTPRepositoryInterface
+class PasswordTokenRepository implements PasswordTokenRepositoryInterface
 {
     /**
      * @param string $username
