@@ -16,6 +16,8 @@ use App\Modules\Core\Repositories\Constant\ConstantRepository;
 use App\Modules\Core\Repositories\Constant\ConstantRepositoryInterface;
 use App\Modules\Core\Repositories\Delivery\DeliveryRepository;
 use App\Modules\Core\Repositories\Delivery\DeliveryRepositoryInterface;
+use App\Modules\Core\Repositories\File\FileRepository;
+use App\Modules\Core\Repositories\File\FileRepositoryInterface;
 use App\Modules\Core\Repositories\Inventory\InventoryRepository;
 use App\Modules\Core\Repositories\Inventory\InventoryRepositoryInterface;
 use App\Modules\Core\Repositories\Location\LocationRepository;
@@ -73,6 +75,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->bind(ConstantRepositoryInterface::class, ConstantRepository::class);
         $this->app->bind(DeliveryRepositoryInterface::class, DeliveryRepository::class);
+        $this->app->bind(FileRepositoryInterface::class, FileRepository::class);
         $this->app->bind(InventoryRepositoryInterface::class, InventoryRepository::class);
         $this->app->bind(LocationRepositoryInterface::class, LocationRepository::class);
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
