@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Psr\Http\Message\StreamInterface;
 
-class FileRepository
+class FileRepository implements FileRepositoryInterface
 {
     protected static string $entity = File::class;
 
