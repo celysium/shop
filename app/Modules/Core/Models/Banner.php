@@ -3,6 +3,7 @@
 namespace App\Modules\Core\Models;
 
 use App\Modules\Core\Enumerations\Banner\Status;
+use App\Modules\Core\Traits\HasFile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,7 +21,7 @@ use Illuminate\Support\Carbon;
  */
 class Banner extends Model
 {
-    use HasFactory;
+    use HasFactory, HasFile;
 
     protected $fillable = [
         'slider_id',
