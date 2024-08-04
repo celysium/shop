@@ -55,6 +55,14 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->registerRepositories();
         $this->registerObserver();
+        $this->loadMigrations();
+    }
+
+
+
+    public function loadMigrations(): void
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrates');
     }
 
     public function registerRepositories(): void
