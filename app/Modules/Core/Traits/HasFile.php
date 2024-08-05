@@ -7,6 +7,8 @@ use App\Modules\Core\Repositories\File\FileRepository;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Http\File as HttpFile;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Psr\Http\Message\StreamInterface;
 
 /**
@@ -21,6 +23,10 @@ trait HasFile
     {
         return $this->morphMany(File::class, 'model');
     }
+    private static function getDirectory(): string
+    {
+        return now()->format('Y/n/j');
+    }
 
     /**
      * @param StreamInterface|HttpFile|UploadedFile|string $file
@@ -29,7 +35,27 @@ trait HasFile
      */
     public function fileStore(StreamInterface|HttpFile|UploadedFile|string $file, string $field = null): ?string
     {
-        return FileRepository::store($this, $file, $field);
+        $id = Str::uuid();
+        $name = sprintf("%s.%s", $id, $file->extension());
+
+        if ($path = Storage::putFileAs(static::getDirectory(), $file, $name)) {
+            /** @var File $fileInfo */
+            $model = File::query()->create([
+                'id'         => $id,
+                'field'      => $field,
+                'path'       => $path,
+                'mime'       => $file->getMimeType(),
+                'size'       => $file->getSize(),
+                'model_id'   => $this->getKey(),
+                'model_type' => get_class($this),
+            ]);
+            if (!$model) {
+                Storage::delete($path);
+                return null;
+            }
+            return $path;
+        }
+        return null;
     }
 
     /**
@@ -38,6 +64,10 @@ trait HasFile
      */
     public function fileDelete(string $path): bool
     {
-        return FileRepository::delete($path);
+        $id = pathinfo($path, PATHINFO_FILENAME);
+
+        return (bool)File::query()
+            ->where('id', $id)
+            ->delete();
     }
 }
