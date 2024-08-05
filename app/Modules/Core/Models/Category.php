@@ -4,6 +4,7 @@ namespace App\Modules\Core\Models;
 
 use App\Modules\Core\Enumerations\Category\Status;
 use App\Modules\Core\Enumerations\Category\Visibility;
+use App\Modules\Core\Traits\HasFile;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -36,8 +37,7 @@ use Illuminate\Support\Collection;
  */
 class Category extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory, SoftDeletes, HasFile;
 
     public const ROOT = 1;
 
