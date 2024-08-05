@@ -32,7 +32,7 @@ class FileRepository implements FileRepositoryInterface
 
         if ($path = Storage::putFileAs(static::getDirectory(), $file, $name)) {
             /** @var File $fileInfo */
-            File::query()->create([
+            $model = File::query()->create([
                 'id'         => $id,
                 'field'      => $field,
                 'path'       => $path,
@@ -41,8 +41,26 @@ class FileRepository implements FileRepositoryInterface
                 'model_id'   => $model->getKey(),
                 'model_type' => get_class($model),
             ]);
+            if (!$model) {
+                Storage::delete($path);
+                return null;
+            }
             return $path;
         }
         return null;
+    }
+
+    /**
+     * @param string $path
+     * @return bool
+     */
+    public static function delete(string $path): bool
+    {
+        $id = pathinfo($path, PATHINFO_FILENAME);
+
+        return (bool)File::query()
+            ->where('id', $id)
+            ->delete();
+
     }
 }

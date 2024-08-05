@@ -4,7 +4,6 @@ namespace App\Modules\Core\Traits;
 
 use App\Modules\Core\Models\File;
 use App\Modules\Core\Repositories\File\FileRepository;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Http\File as HttpFile;
 use Illuminate\Http\UploadedFile;
@@ -31,5 +30,14 @@ trait HasFile
     public function fileStore(StreamInterface|HttpFile|UploadedFile|string $file, string $field = null): ?string
     {
         return FileRepository::store($this, $file, $field);
+    }
+
+    /**
+     * @param string $path
+     * @return bool
+     */
+    public function fileDelete(string $path): bool
+    {
+        return FileRepository::delete($path);
     }
 }
