@@ -2,14 +2,8 @@
 
 namespace App\Modules\Admin\Providers;
 
-use App\Modules\Admin\Services\Admin\Authentication\AuthenticationService;
-use App\Modules\Admin\Services\Admin\Authentication\AuthenticationServiceInterface;
-use App\Modules\Core\Models\Cart;
-use App\Modules\Core\Observers\CartObserver;
-use App\Modules\Core\Repositories\PasswordToken\PasswordTokenRepository;
-use App\Modules\Core\Repositories\PasswordToken\PasswordTokenRepositoryInterface;
-use App\Modules\Core\Repositories\User\UserRepository;
-use App\Modules\Core\Repositories\User\UserRepositoryInterface;
+use App\Modules\Admin\Services\Authentication\AuthenticationService;
+use App\Modules\Admin\Services\Authentication\AuthenticationServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AminServiceProvider extends ServiceProvider
@@ -19,31 +13,11 @@ class AminServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->registerRepositories();
-    }
-
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        $this->registerRepositories();
         $this->registerServices();
     }
 
     private function registerServices(): void
     {
         $this->app->bind(AuthenticationServiceInterface::class, AuthenticationService::class);
-    }
-
-    public function registerRepositories(): void
-    {
-        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
-        $this->app->bind(PasswordTokenRepositoryInterface::class, PasswordTokenRepository::class);
-    }
-
-    public function registerObserver()
-    {
-        Cart::observe(CartObserver::class);
     }
 }

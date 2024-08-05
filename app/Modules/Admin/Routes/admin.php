@@ -1,6 +1,6 @@
 <?php
 
-use App\Modules\Admin\Controllers\Admin\AuthenticationController;
+use App\Modules\Admin\Controllers\AuthenticationController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {

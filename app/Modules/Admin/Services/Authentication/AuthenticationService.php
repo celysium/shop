@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Admin\Services\Admin\Authentication;
+namespace App\Modules\Admin\Services\Authentication;
 
 use App\Modules\Core\Models\User;
 use App\Modules\Core\Repositories\PasswordToken\PasswordTokenRepositoryInterface;
