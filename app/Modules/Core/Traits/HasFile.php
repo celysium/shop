@@ -49,11 +49,10 @@ trait HasFile
                 'model_id'   => $this->getKey(),
                 'model_type' => get_class($this),
             ]);
-            if (!$model) {
-                Storage::delete($path);
-                return null;
+            if ($model) {
+                return $path;
             }
-            return $path;
+            Storage::delete($path);
         }
         return null;
     }
