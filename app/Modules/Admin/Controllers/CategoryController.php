@@ -6,7 +6,7 @@ use App\Modules\Admin\Requests\Category\StoreRequest;
 use App\Modules\Admin\Requests\Category\UpdateRequest;
 use App\Modules\Admin\Resources\Category\BriefResource;
 use App\Modules\Admin\Resources\Category\DetailResource;
-use App\Modules\Admin\Services\Category\CategoryService;
+use App\Modules\Admin\Services\Category\CategoryServiceInterface;
 use App\Modules\Core\Models\Category;
 use Celysium\Response\Response;
 use Illuminate\Http\JsonResponse;
@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 
 readonly class CategoryController
 {
-    public function __construct(private CategoryService $categoryService)
+    public function __construct(private CategoryServiceInterface $categoryService)
     {
     }
 
@@ -51,6 +51,13 @@ readonly class CategoryController
         $this->categoryService->destroy($category);
 
         return Response::success();
+    }
+
+    public function children(Request $request): JsonResponse
+    {
+        $categories = $this->categoryService->children($request->all());
+
+        return Response::collection(BriefResource::collection($categories));
     }
 
 }

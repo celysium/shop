@@ -5,6 +5,7 @@ namespace App\Modules\Core\Repositories\Category;
 use App\Modules\Core\Models\Category;
 use Celysium\Helper\Repository\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class CategoryRepository extends BaseRepository implements CategoryRepositoryInterface
@@ -75,4 +76,39 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
                     ->max('position') + 1;
         }
     }
+
+    public function children(Category $category, $columns = ['*']): Collection
+    {
+        return $this->model->query()
+            ->where('parent_id', $category->id)
+            ->get($columns);
+    }
+
+    public function tree(array $parameters, $conditions = []): Category
+    {
+        $categories = $this->model->query()
+            ->where($conditions)
+            ->get(['id', 'name', 'slug', 'parent_id']);
+
+        /** @var Category $category */
+        $category = $categories
+            ->when(isset($parameters['id']), fn($query) => $query->where('id', $parameters['id']))
+            ->when(isset($parameters['slug']), fn($query) => $query->where('slug', $parameters['slug']))
+            ->firstOrFail();
+
+        return $this->getChildren($categories, $category);
+    }
+
+    public function getChildren(Collection $categories, Category &$category): Category
+    {
+        $category->children = $children = $categories->where('parent_id', $category->id);
+
+        /** @var Category $child */
+        foreach ($children as $child) {
+            $child->children = $this->getChildren($categories, $child);
+        }
+
+        return $category;
+    }
+
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "35627e707b4b4bb25208adc24ac5bf30",
+    "content-hash": "12914bffef58938030d4769ea8105c53",
     "packages": [
         {
             "name": "brick/math",
@@ -137,16 +137,16 @@
         },
         {
             "name": "celysium/helper",
-            "version": "v3.7.4",
+            "version": "v3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/celysium/helper.git",
-                "reference": "6d82cf4b37c7d0f00f2837087aef8986729914e5"
+                "reference": "2beb964fccea7b24a808226f377e50a6a761326f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/celysium/helper/zipball/6d82cf4b37c7d0f00f2837087aef8986729914e5",
-                "reference": "6d82cf4b37c7d0f00f2837087aef8986729914e5",
+                "url": "https://api.github.com/repos/celysium/helper/zipball/2beb964fccea7b24a808226f377e50a6a761326f",
+                "reference": "2beb964fccea7b24a808226f377e50a6a761326f",
                 "shasum": ""
             },
             "require": {
@@ -185,9 +185,9 @@
             ],
             "support": {
                 "issues": "https://github.com/celysium/helper/issues",
-                "source": "https://github.com/celysium/helper/tree/v3.7.4"
+                "source": "https://github.com/celysium/helper/tree/v3.8"
             },
-            "time": "2024-08-04T12:19:47+00:00"
+            "time": "2024-08-07T07:58:00+00:00"
         },
         {
             "name": "celysium/permissions",
