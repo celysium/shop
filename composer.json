@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "celysium/helper": "^3.8",
+        "celysium/helper": "v3.7.4",
         "celysium/permissions": "^4.0",
         "celysium/response": "^1.0",
         "laravel/framework": "^11.9",
