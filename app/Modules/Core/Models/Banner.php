@@ -8,14 +8,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @property int $id
  * @property int $slider_id
- * @property string $path
+ * @property string $image
+ * @property string $image_url
  * @property string $title
  * @property string $url
  * @property int $position
+ * @property Status $status
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
@@ -25,7 +28,7 @@ class Banner extends Model
 
     protected $fillable = [
         'slider_id',
-        'path',
+        'image',
         'title',
         'url',
         'position',
@@ -42,5 +45,10 @@ class Banner extends Model
     public function slider(): BelongsTo
     {
         return $this->belongsTo(Slider::class);
+    }
+
+    public function getImageUrlAttribute(): string
+    {
+        return Storage::url($this->image);
     }
 }

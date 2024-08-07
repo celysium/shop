@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
             $table->foreignId('slider_id')->nullable()->constrained('sliders');
-            $table->string('path');
+            $table->string('image');
             $table->string('title');
             $table->string('url');
             $table->unsignedTinyInteger('position')->default(0);

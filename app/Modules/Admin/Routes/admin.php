@@ -24,6 +24,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('categories/{category}/tree', [CategoryController::class, 'tree'])->name('categories.tree');
         Route::get('categories/{category}/children', [CategoryController::class, 'children'])->name('categories.children');
         Route::apiResource('categories', CategoryController::class);
+
+        Route::apiResource('categories', CategoryController::class);
     });
 
 });
