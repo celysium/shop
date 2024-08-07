@@ -19,8 +19,8 @@ class CategoryService extends BaseService implements CategoryServiceInterface
         return $this->categoryRepository->children($category);
     }
 
-    public function tree(array $parameters, array $conditions = []): Category
+    public function tree(Category $category): Category
     {
-        return $this->categoryRepository->tree($parameters, $conditions);
+        return $this->categoryRepository->tree($category);
     }
 }

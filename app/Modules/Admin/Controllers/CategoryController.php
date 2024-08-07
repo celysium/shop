@@ -5,7 +5,9 @@ namespace App\Modules\Admin\Controllers;
 use App\Modules\Admin\Requests\Category\StoreRequest;
 use App\Modules\Admin\Requests\Category\UpdateRequest;
 use App\Modules\Admin\Resources\Category\BriefResource;
+use App\Modules\Admin\Resources\Category\ChildrenResource;
 use App\Modules\Admin\Resources\Category\DetailResource;
+use App\Modules\Admin\Resources\Category\TreeResource;
 use App\Modules\Admin\Services\Category\CategoryServiceInterface;
 use App\Modules\Core\Models\Category;
 use Celysium\Response\Response;
@@ -53,11 +55,18 @@ readonly class CategoryController
         return Response::success();
     }
 
-    public function children(Request $request): JsonResponse
+    public function children(Category $category): JsonResponse
     {
-        $categories = $this->categoryService->children($request->all());
+        $categories = $this->categoryService->children($category);
 
-        return Response::collection(BriefResource::collection($categories));
+        return Response::collection(ChildrenResource::collection($categories));
+    }
+
+    public function tree(Category $category): JsonResponse
+    {
+        $category = $this->categoryService->tree($category);
+
+        return Response::collection(new TreeResource($category));
     }
 
 }

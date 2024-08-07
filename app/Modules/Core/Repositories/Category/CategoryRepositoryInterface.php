@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 
 interface CategoryRepositoryInterface extends BaseRepositoryInterface
 {
-    public function children(Category $category, $columns = ['*']): Collection;
-    public function tree(array $parameters, $conditions = []): Category;
+    public function children(Category $category): Collection;
+
+    public function tree(Category $category, array $conditions = []): Category;
 }

@@ -11,6 +11,6 @@ interface CategoryServiceInterface extends BaseServiceInterface
 {
     public function children(Category $category): Collection;
 
-    public function tree(array $parameters, array $conditions = []): Category;
+    public function tree(Category $category): Category;
 
 }
