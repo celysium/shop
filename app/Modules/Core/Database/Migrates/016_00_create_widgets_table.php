@@ -14,9 +14,10 @@ return new class extends Migration
     {
         Schema::create('widgets', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('slug')->unique();
-            $table->string('url')->nullable();
+            $table->string('icon')->nullable();
+            $table->string('image')->nullable();
             $table->tinyInteger('status')->default(Status::ACTIVE);
             $table->timestamps();
         });

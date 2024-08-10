@@ -14,7 +14,8 @@ use Illuminate\Support\Collection;
  * @property string $id
  * @property string $name
  * @property string $slug
- * @property string $url
+ * @property string $icon
+ * @property string $image
  * @property Status $status
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -25,12 +26,13 @@ use Illuminate\Support\Collection;
  */
 class Widget extends Model
 {
-    use HasFactory;
+    use HasFactory, HasFactory;
 
     protected $fillable = [
         'name',
         'slug',
-        'url',
+        'icon',
+        'image',
         'status',
     ];
 
