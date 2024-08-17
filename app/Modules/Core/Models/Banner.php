@@ -4,6 +4,7 @@ namespace App\Modules\Core\Models;
 
 use App\Modules\Core\Enumerations\Banner\Status;
 use App\Modules\Core\Traits\HasFile;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,7 +15,6 @@ use Illuminate\Support\Facades\Storage;
  * @property int $id
  * @property int $slider_id
  * @property string $image
- * @property string $image_url
  * @property string $title
  * @property string $url
  * @property int $position
@@ -47,8 +47,11 @@ class Banner extends Model
         return $this->belongsTo(Slider::class);
     }
 
-    public function getImageUrlAttribute(): string
+    protected function image(): Attribute
     {
-        return Storage::url($this->image);
+        return Attribute::make(
+            fn (string $value) => $this->fileUrl($value),
+            fn (string $value) => $this->fileStore($value),
+        );
     }
 }

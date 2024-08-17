@@ -19,7 +19,7 @@ class DetailResource extends ResourceCollection
         return [
             'id'         => $this->id,
             'slider_id'  => $this->slider_id,
-            'image_url'  => $this->image_url,
+            'image'      => $this->image,
             'title'      => $this->title,
             'url'        => $this->url,
             'position'   => $this->position,
