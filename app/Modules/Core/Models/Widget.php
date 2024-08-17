@@ -3,7 +3,9 @@
 namespace App\Modules\Core\Models;
 
 use App\Modules\Core\Enumerations\Widget\Status;
+use App\Modules\Core\Traits\HasFile;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -15,7 +17,7 @@ use Illuminate\Support\Collection;
  * @property string $name
  * @property string $slug
  * @property string $icon
- * @property string $image
+ * @property string $banner
  * @property Status $status
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -26,13 +28,13 @@ use Illuminate\Support\Collection;
  */
 class Widget extends Model
 {
-    use HasFactory, HasFactory;
+    use HasFactory, HasFile;
 
     protected $fillable = [
         'name',
         'slug',
         'icon',
-        'image',
+        'banner',
         'status',
     ];
 
@@ -51,5 +53,19 @@ class Widget extends Model
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'product_widget', 'widget_id','id')->withTimestamps();
+    }
+    protected function icon(): Attribute
+    {
+        return Attribute::make(
+            fn (string $value) => $this->fileUrl($value),
+            fn (string $value) => $this->fileStore($value),
+        );
+    }
+    protected function banner(): Attribute
+    {
+        return Attribute::make(
+            fn (string $value) => $this->fileUrl($value),
+            fn (string $value) => $this->fileStore($value),
+        );
     }
 }

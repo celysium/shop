@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('icon')->nullable();
-            $table->string('image')->nullable();
+            $table->string('banner')->nullable();
             $table->tinyInteger('status')->default(Status::ACTIVE);
             $table->timestamps();
         });
