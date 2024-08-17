@@ -1,7 +1,9 @@
 <?php
 
 use App\Modules\Admin\Controllers\AuthenticationController;
+use App\Modules\Admin\Controllers\BannerController;
 use App\Modules\Admin\Controllers\CategoryController;
+use App\Modules\Admin\Controllers\WidgetController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -25,7 +27,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('categories/{category}/children', [CategoryController::class, 'children'])->name('categories.children');
         Route::apiResource('categories', CategoryController::class);
 
-        Route::apiResource('categories', CategoryController::class);
+        Route::apiResource('banners', BannerController::class);
     });
 
 });
