@@ -69,4 +69,9 @@ trait HasFile
             ->where('id', $id)
             ->delete();
     }
+
+    public function fileUrl(string $value): string
+    {
+        return Storage::url($value);
+    }
 }
