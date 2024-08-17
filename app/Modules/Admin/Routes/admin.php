@@ -28,6 +28,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::apiResource('categories', CategoryController::class);
 
         Route::apiResource('banners', BannerController::class);
+
+        Route::apiResource('widgets', WidgetController::class);
     });
 
 });
