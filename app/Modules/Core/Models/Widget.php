@@ -58,14 +58,14 @@ class Widget extends Model
     {
         return Attribute::make(
             fn (string $value) => $this->fileUrl($value),
-            fn (string $value) => $this->fileStore($value),
+            fn (string $value) => $this->fileStore($value, 'icon'),
         );
     }
     protected function banner(): Attribute
     {
         return Attribute::make(
             fn (string $value) => $this->fileUrl($value),
-            fn (string $value) => $this->fileStore($value),
+            fn (string $value) => $this->fileStore($value, 'banner'),
         );
     }
 }
