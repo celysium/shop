@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
 
-    public function up()
+    public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
@@ -17,18 +17,17 @@ return new class extends Migration {
             $table->string('slug')->unique();
             $table->tinyInteger('visible')->default(Visibility::VISIBLE);
             $table->tinyInteger('status')->default(Status::ACTIVE);
-            $table->json('path')->nullable();
-            $table->string('icon')->nullable();
-            $table->string('image')->nullable();
-            $table->tinyInteger('level')->nullable();
-            $table->text('description')->nullable();
             $table->unsignedTinyInteger('position')->default(0);
+            $table->string('icon')->nullable();
+            $table->string('banner')->nullable();
+            $table->text('description')->nullable();
+            $table->json('path')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('categories');
     }

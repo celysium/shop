@@ -6,6 +6,7 @@ use App\Modules\Core\Enumerations\Category\Status;
 use App\Modules\Core\Enumerations\Category\Visibility;
 use App\Modules\Core\Traits\HasFile;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,14 +20,13 @@ use Illuminate\Support\Collection;
  * @property int $parent_id
  * @property int $id
  * @property string $name
- * @property string $image
  * @property string $icon
+ *  @property string $banner
  * @property string $slug
  * @property string $description
  * @property Status $status
  * @property Visibility $visible
  * @property array $path
- * @property integer $level
  * @property integer $position
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -54,10 +54,9 @@ class Category extends Model
         'slug',
         'icon',
         'path',
-        'image',
+        'banner',
         'description',
         'status',
-        'level',
         'position',
         'visible',
     ];
@@ -75,5 +74,20 @@ class Category extends Model
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);
+    }
+
+    protected function icon(): Attribute
+    {
+        return Attribute::make(
+            fn (string $value) => $this->fileUrl($value),
+            fn (string $value) => $this->fileStore($value, 'icon'),
+        );
+    }
+    protected function banner(): Attribute
+    {
+        return Attribute::make(
+            fn (string $value) => $this->fileUrl($value),
+            fn (string $value) => $this->fileStore($value, 'banner'),
+        );
     }
 }
