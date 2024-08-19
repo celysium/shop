@@ -23,6 +23,7 @@ trait HasFile
     {
         return $this->morphMany(File::class, 'model');
     }
+
     private static function getDirectory(): string
     {
         return now()->format('Y/n/j');
@@ -31,10 +32,15 @@ trait HasFile
     /**
      * @param StreamInterface|HttpFile|UploadedFile|string $file
      * @param string|null $field
+     * @param string|null $replace
      * @return string|null
      */
-    public function fileStore(StreamInterface|HttpFile|UploadedFile|string $file, string $field = null): ?string
+    public function fileStore(StreamInterface|HttpFile|UploadedFile|string $file, string $field = null, string $replace = null): ?string
     {
+        if ($replace) {
+            $this->fileDelete($replace);
+        }
+
         $id = Str::uuid();
         $name = sprintf("%s.%s", $id, $file->extension());
 
