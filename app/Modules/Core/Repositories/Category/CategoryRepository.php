@@ -21,8 +21,6 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         /** @var Category $category */
         $category = $this->model->newQuery()->create($parameters);
 
-        $this->fillAttributes($category, $parameters);
-
         DB::commit();
 
         return $category->refresh();
@@ -36,30 +34,18 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
 
         $model->update($parameters);
 
-        $this->fillAttributes($model, $parameters);
-
         DB::commit();
 
         return $model->refresh();
     }
 
-    private function fillAttributes(Model $model, array $parameters): void
+    public static function fillPath(Category $category): void
     {
-        /** @var Category $model */
-        $category = $model;
         $parent = $category->parent;
-        $category->path = array_merge($parent ? $parent->path : [], [$category->only(['id', 'name'])]);
-        $category->level = $parent ? $parent->level + 1 : 0;
-        $category->slug = slug($category->name);
-        if (isset($parameters['icon'])) {
-            $category->icon = $category->fileStore($parameters['icon'], 'icon');
-        }
-        if (isset($parameters['image'])) {
-            $category->image = $category->fileStore($parameters['image'], 'image');
-        }
+        $category->path = array_merge($parent ? $parent->path : [], [$category->only(['id', 'name', 'slug'])]);
         $category->save();
         foreach ($category->children as $child) {
-            $this->fillAttributes($child, []);
+            static::fillPath($child);
         }
     }
 
@@ -94,7 +80,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         return $this->getChildren($categories, $category);
     }
 
-    public function getChildren(Collection $categories, Category &$category): Category
+    public function getChildren(Collection $categories, Category $category): Category
     {
         $category->children = $children = $categories->where('parent_id', $category->id);
 
