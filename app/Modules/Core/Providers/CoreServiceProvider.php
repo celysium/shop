@@ -3,7 +3,9 @@
 namespace App\Modules\Core\Providers;
 
 use App\Modules\Core\Models\Cart;
+use App\Modules\Core\Models\Category;
 use App\Modules\Core\Observers\CartObserver;
+use App\Modules\Core\Observers\CategoryObserver;
 use App\Modules\Core\Repositories\Address\AddressRepository;
 use App\Modules\Core\Repositories\Address\AddressRepositoryInterface;
 use App\Modules\Core\Repositories\Banner\BannerRepository;
@@ -61,7 +63,6 @@ class CoreServiceProvider extends ServiceProvider
     }
 
 
-
     public function loadMigrations(): void
     {
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrates');
@@ -95,5 +96,6 @@ class CoreServiceProvider extends ServiceProvider
     public function registerObserver(): void
     {
         Cart::observe(CartObserver::class);
+        Category::observe(CategoryObserver::class);
     }
 }
