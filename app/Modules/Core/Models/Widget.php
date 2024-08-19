@@ -54,18 +54,19 @@ class Widget extends Model
     {
         return $this->belongsToMany(Product::class, 'product_widget', 'widget_id','id')->withTimestamps();
     }
+
     protected function icon(): Attribute
     {
         return Attribute::make(
-            fn (string $value) => $this->fileUrl($value),
-            fn (string $value) => $this->fileStore($value, 'icon'),
+            get: fn (string $value) => $this->fileUrl($value),
+            set: fn (string $value) => $this->fileStore($value, 'icon', $this->getOriginal('icon')),
         );
     }
     protected function banner(): Attribute
     {
         return Attribute::make(
-            fn (string $value) => $this->fileUrl($value),
-            fn (string $value) => $this->fileStore($value, 'banner'),
+            get: fn (string $value) => $this->fileUrl($value),
+            set: fn (string $value) => $this->fileStore($value, 'banner', $this->getOriginal('banner')),
         );
     }
 }

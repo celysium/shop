@@ -49,8 +49,8 @@ class Banner extends Model
     protected function image(): Attribute
     {
         return Attribute::make(
-            fn (string $value) => $this->fileUrl($value),
-            fn (string $value) => $this->fileStore($value, 'image'),
+            get: fn (string $value) => $this->fileUrl($value),
+            set: fn (string $value) => $this->fileStore($value, 'image', $this->getOriginal('image')),
         );
     }
 }
