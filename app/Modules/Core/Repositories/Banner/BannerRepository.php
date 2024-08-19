@@ -6,7 +6,7 @@ use App\Modules\Core\Models\Banner;
 use Celysium\Helper\Repository\BaseRepository;
 use Illuminate\Database\Eloquent\Builder;
 
-class BannerRepository extends BaseRepository
+class BannerRepository extends BaseRepository implements BannerRepositoryInterface
 {
     protected static string $entity = Banner::class;
 

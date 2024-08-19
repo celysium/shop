@@ -5,7 +5,7 @@ namespace App\Modules\Core\Repositories\Constant;
 use App\Modules\Core\Models\Constant;
 use Celysium\Helper\Repository\BaseRepository;
 
-class ConstantRepository extends BaseRepository
+class ConstantRepository extends BaseRepository implements ConstantRepositoryInterface
 {
     protected static string $entity = Constant::class;
 
