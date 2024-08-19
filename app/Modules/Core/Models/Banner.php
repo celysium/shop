@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Storage;
 
 /**
  * @property int $id
@@ -51,7 +50,7 @@ class Banner extends Model
     {
         return Attribute::make(
             fn (string $value) => $this->fileUrl($value),
-            fn (string $value) => $this->fileStore($value),
+            fn (string $value) => $this->fileStore($value, 'image'),
         );
     }
 }
