@@ -13,6 +13,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name'        => ['sometimes', 'string'],
+            'slug'        => ['sometimes', 'string'],
             'parent_id'   => ['sometimes', 'exists:categories,id'],
             'icon'        => ['sometimes', 'file', 'max:200'],
             'image'       => ['sometimes', 'file', 'max:500'],

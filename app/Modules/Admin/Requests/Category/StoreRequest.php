@@ -13,6 +13,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'name'        => ['required', 'string'],
+            'slug'        => ['required', 'string'],
             'parent_id'   => ['required', 'exists:categories,id'],
             'icon'        => ['sometimes', 'file', 'max:200'],
             'image'       => ['sometimes', 'file', 'max:500'],
