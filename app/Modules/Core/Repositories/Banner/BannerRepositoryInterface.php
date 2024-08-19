@@ -6,5 +6,5 @@ use Celysium\Helper\Contracts\BaseRepositoryInterface;
 
 interface BannerRepositoryInterface extends BaseRepositoryInterface
 {
-
+    public static function rearrangePosition(array &$parameters, int $currentPosition = null): void;
 }
