@@ -59,6 +59,7 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->registerRepositories();
         $this->registerObserver();
+        $this->registerFacades();
         $this->loadMigrations();
     }
 
@@ -97,5 +98,10 @@ class CoreServiceProvider extends ServiceProvider
     {
         Cart::observe(CartObserver::class);
         Category::observe(CategoryObserver::class);
+    }
+
+    private function registerFacades(): void
+    {
+        $this->app->bind('store-repository', fn() => new StoreRepository() );
     }
 }
