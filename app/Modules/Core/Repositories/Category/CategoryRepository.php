@@ -30,7 +30,8 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     {
         DB::beginTransaction();
 
-        $this->sortPositions($parameters);
+        /** @var Category $model */
+        $this->sortPositions($parameters, $model->position);
 
         $model->update($parameters);
 
@@ -49,17 +50,33 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         }
     }
 
-    private function sortPositions(array &$parameters): void
+    private function sortPositions(array &$parameters, int $currentPosition = null): void
     {
-        if (array_key_exists('position', $parameters)) {
-            Category::query()
-                ->where('parent_id', $parameters['parent_id'])
-                ->where('position', '>=', $parameters['position'])
-                ->increment('position');
-        } else {
+        $newPosition = $parameters['position'] ?? null;
+
+        if ($newPosition == null || $currentPosition == null) {
             $parameters['position'] = Category::query()
                     ->where('parent_id', $parameters['parent_id'])
                     ->max('position') + 1;
+            return;
+        }
+
+        if ($currentPosition == $newPosition) {
+            return;
+        }
+
+        if ($newPosition > $currentPosition) {
+            Category::query()
+                ->where('parent_id', $parameters['parent_id'])
+                ->where('position', '>=', $currentPosition)
+                ->where('position', '<', $newPosition)
+                ->decrement('position');
+        } else {
+            Category::query()
+                ->where('parent_id', $parameters['parent_id'])
+                ->where('position', '<', $currentPosition)
+                ->where('position', '>=', $newPosition)
+                ->increment('position');
         }
     }
 
