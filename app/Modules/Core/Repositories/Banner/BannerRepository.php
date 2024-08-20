@@ -30,7 +30,7 @@ class BannerRepository extends BaseRepository implements BannerRepositoryInterfa
         DB::beginTransaction();
 
         /** @var Banner $model */
-        $this->rearrangePosition($parameters);
+        $this->sortPositions($parameters);
 
         /** @var Banner $banner */
         $banner = $this->model->query()->create($parameters);
@@ -45,7 +45,7 @@ class BannerRepository extends BaseRepository implements BannerRepositoryInterfa
         DB::beginTransaction();
 
         /** @var Banner $model */
-        $this->rearrangePosition($parameters, $model->position);
+        $this->sortPositions($parameters, $model->position);
 
         /** @var Banner $banner */
         $model->update($parameters);
@@ -60,7 +60,7 @@ class BannerRepository extends BaseRepository implements BannerRepositoryInterfa
      * @param int|null $currentPosition
      * @return void
      */
-    public static function rearrangePosition(array &$parameters, int $currentPosition = null): void
+    public static function sortPositions(array &$parameters, int $currentPosition = null): void
     {
         $newPosition = $parameters['position'] ?? null;
 
