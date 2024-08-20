@@ -26,7 +26,6 @@ use Illuminate\Support\Collection;
  * @property Carbon $updated_at
  * @property Carbon $deleted_at
  *
- * @property Product $parent
  * @property Collection<Category> $categories
  * @property Collection<ProductImage> $images
  */
@@ -40,7 +39,6 @@ class Product extends Model
         'sku',
         'slug',
         'description',
-        'parent_id',
         'type',
         'status',
         'visibility',
