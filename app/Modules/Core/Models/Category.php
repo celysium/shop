@@ -80,14 +80,14 @@ class Category extends Model
     {
         return Attribute::make(
             get: fn (string $value) => $this->fileUrl($value),
-            set: fn (string $value) => $this->fileStore($value, 'icon', $this->getOriginal('icon')),
+            set: fn (mixed $value) => $this->fileStore($value, 'icon', $this->getOriginal('icon')),
         );
     }
     protected function banner(): Attribute
     {
         return Attribute::make(
             get: fn (string $value) => $this->fileUrl($value),
-            set: fn (string $value) => $this->fileStore($value, 'banner', $this->getOriginal('banner')),
+            set: fn (mixed $value) => $this->fileStore($value, 'banner', $this->getOriginal('banner')),
         );
     }
 }

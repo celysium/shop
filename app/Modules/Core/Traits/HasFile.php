@@ -3,7 +3,6 @@
 namespace App\Modules\Core\Traits;
 
 use App\Modules\Core\Models\File;
-use App\Modules\Core\Repositories\File\FileRepository;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Http\File as HttpFile;
 use Illuminate\Http\UploadedFile;
@@ -12,14 +11,14 @@ use Illuminate\Support\Str;
 use Psr\Http\Message\StreamInterface;
 
 /**
- * @property File $file
+ * @property File $files
  */
 trait HasFile
 {
     /**
      * Get the post's image.
      */
-    public function file(): MorphMany
+    public function files(): MorphMany
     {
         return $this->morphMany(File::class, 'model');
     }
@@ -53,7 +52,7 @@ trait HasFile
                 'mime'       => $file->getMimeType(),
                 'size'       => $file->getSize(),
                 'model_id'   => $this->getKey(),
-                'model_type' => get_class($this),
+                'model_type' => static::class,
             ]);
             if ($model) {
                 return $path;

@@ -50,7 +50,7 @@ class Banner extends Model
     {
         return Attribute::make(
             get: fn (string $value) => $this->fileUrl($value),
-            set: fn (string $value) => $this->fileStore($value, 'image', $this->getOriginal('image')),
+            set: fn (mixed $value) => $this->fileStore($value, 'image', $this->getOriginal('image')),
         );
     }
 }
