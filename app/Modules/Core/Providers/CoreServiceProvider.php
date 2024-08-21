@@ -48,7 +48,14 @@ use App\Modules\Core\Repositories\User\UserRepository;
 use App\Modules\Core\Repositories\User\UserRepositoryInterface;
 use App\Modules\Core\Repositories\Widget\WidgetRepository;
 use App\Modules\Core\Repositories\Widget\WidgetRepositoryInterface;
+use DirectoryIterator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use ReflectionClass;
+use SplFileInfo;
+use Symfony\Component\Finder\Finder;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -102,6 +109,7 @@ class CoreServiceProvider extends ServiceProvider
 
     private function registerFacades(): void
     {
-        $this->app->bind('store-repository', fn() => new StoreRepository() );
+        $this->app->bind('store-repository', fn() => new StoreRepository());
+        $this->app->bind('inventory-repository', fn() => new InventoryRepository());
     }
 }
