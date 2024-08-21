@@ -27,6 +27,7 @@ use Illuminate\Support\Collection;
  * @property Carbon $deleted_at
  *
  * @property Collection<Category> $categories
+ * @property Collection<Inventory> $inventories
  * @property Collection<ProductImage> $images
  */
 class Product extends Model
@@ -59,5 +60,10 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class, 'product_id')
             ->orderBy('position');
+    }
+
+    public function inventories(): HasMany
+    {
+        return $this->hasMany(Inventory::class);
     }
 }
