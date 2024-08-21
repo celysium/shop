@@ -29,6 +29,7 @@ use Illuminate\Support\Collection;
  * @property Collection<Category> $categories
  * @property Collection<Inventory> $inventories
  * @property Collection<ProductImage> $images
+ * @property Collection<Store> $stores
  */
 class Product extends Model
 {
@@ -65,5 +66,10 @@ class Product extends Model
     public function inventories(): HasMany
     {
         return $this->hasMany(Inventory::class);
+    }
+
+    public function stores(): BelongsToMany
+    {
+        return $this->belongsToMany(Store::class, 'inventories');
     }
 }
