@@ -2,8 +2,6 @@
 
 namespace App\Modules\Core\Models;
 
-use App\Modules\Core\Enumerations\Category\Status;
-use App\Modules\Core\Enumerations\Category\Visibility;
 use App\Modules\Core\Traits\HasEnumeration;
 use App\Modules\Core\Traits\HasFile;
 use Carbon\Carbon;
@@ -25,8 +23,8 @@ use Illuminate\Support\Collection;
  *  @property string $banner
  * @property string $slug
  * @property string $description
- * @property Status $status
- * @property Visibility $visible
+ * @property int $status
+ * @property int $visible
  * @property array $path
  * @property integer $position
  * @property Carbon $created_at
@@ -44,8 +42,6 @@ class Category extends Model
 
     protected $casts = [
         'path'    => 'array',
-        'visible' => Visibility::class,
-        'status'  => Status::class
     ];
 
     protected $fillable = [

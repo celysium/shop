@@ -17,7 +17,7 @@ use Illuminate\Support\Carbon;
  * @property string $title
  * @property string $url
  * @property int $position
- * @property Status $status
+ * @property int $status
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
