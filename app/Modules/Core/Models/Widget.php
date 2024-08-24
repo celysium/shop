@@ -2,7 +2,7 @@
 
 namespace App\Modules\Core\Models;
 
-use App\Modules\Core\Enumerations\Widget\Status;
+use App\Modules\Core\Traits\HasEnumeration;
 use App\Modules\Core\Traits\HasFile;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -18,7 +18,7 @@ use Illuminate\Support\Collection;
  * @property string $slug
  * @property string $icon
  * @property string $banner
- * @property Status $status
+ * @property int $status
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Carbon $deleted_at
@@ -28,7 +28,7 @@ use Illuminate\Support\Collection;
  */
 class Widget extends Model
 {
-    use HasFactory, HasFile;
+    use HasFactory, HasFile, HasEnumeration;
 
     protected $fillable = [
         'name',
@@ -36,10 +36,6 @@ class Widget extends Model
         'icon',
         'banner',
         'status',
-    ];
-
-    protected $casts = [
-        'status' => Status::class,
     ];
 
     /**

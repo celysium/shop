@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DeliveryEnumSeeder::class);
         $this->call(SliderEnumSeeder::class);
         $this->call(UserEnumSeeder::class);
+        $this->call(WidgetEnumSeeder::class);
     }
 }

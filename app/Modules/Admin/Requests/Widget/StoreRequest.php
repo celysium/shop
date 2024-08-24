@@ -2,9 +2,9 @@
 
 namespace App\Modules\Admin\Requests\Widget;
 
-use App\Modules\Core\Enumerations\Widget\Status;
+use App\Modules\Core\Models\Widget;
+use App\Modules\Core\Rules\Enum;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Enum;
 
 class StoreRequest extends FormRequest
 {
@@ -15,7 +15,7 @@ class StoreRequest extends FormRequest
             'slug'          => ['sometimes', 'string', 'unique:widgets,slug'],
             'icon'          => ['nullable', 'file', 'max:200'],
             'image'         => ['nullable', 'file', 'max:500'],
-            'status'        => ['required', new Enum(Status::class)],
+            'status'        => ['required', new Enum(Widget::class)],
             'products_id'   => ['required', 'array'],
             'products_id.*' => ['exists:products,id'],
         ];
