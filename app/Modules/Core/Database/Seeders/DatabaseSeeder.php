@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(BannerEnumSeeder::class);
         $this->call(CategoryEnumSeeder::class);
         $this->call(DeliveryEnumSeeder::class);
+        $this->call(SliderEnumSeeder::class);
     }
 }

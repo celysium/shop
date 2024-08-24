@@ -2,7 +2,6 @@
 
 namespace App\Modules\Core\Models;
 
-use App\Modules\Core\Enumerations\Slider\Status;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +12,7 @@ use Illuminate\Support\Collection;
  * @property int $id
  * @property string $name
  * @property string $slug
- * @property Status $status
+ * @property int $status
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *
@@ -27,10 +26,6 @@ class Slider extends Model
         'name',
         'slug',
         'status',
-    ];
-
-    protected $casts = [
-        'status' => Status::class,
     ];
 
     public function banners(): HasMany
