@@ -2,7 +2,7 @@
 
 namespace App\Modules\Core\Models;
 
-use App\Modules\Core\Enumerations\Banner\Status;
+use App\Modules\Core\Traits\HasEnumeration;
 use App\Modules\Core\Traits\HasFile;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,7 +23,7 @@ use Illuminate\Support\Carbon;
  */
 class Banner extends Model
 {
-    use HasFactory, HasFile;
+    use HasFactory, HasFile, HasEnumeration;
 
     protected $fillable = [
         'slider_id',
@@ -32,10 +32,6 @@ class Banner extends Model
         'url',
         'position',
         'status',
-    ];
-
-    protected $casts = [
-        'status' => Status::class,
     ];
 
     /**
