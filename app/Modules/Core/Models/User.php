@@ -2,8 +2,7 @@
 
 namespace App\Modules\Core\Models;
 
-use App\Modules\Core\Enumerations\User\Gender;
-use App\Modules\Core\Enumerations\User\Status;
+use App\Modules\Core\Traits\HasEnumeration;
 use Carbon\Carbon;
 use Celysium\Permission\Traits\Permissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,15 +19,15 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string|null $lastname
  * @property string|null $password
  * @property string $avatar
- * @property Gender $gender
- * @property Status $status
+ * @property int $gender
+ * @property int $status
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Carbon $deleted_at
  */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, SoftDeletes, Permissions, HasApiTokens;
+    use HasFactory, Notifiable, SoftDeletes, Permissions, HasApiTokens, HasEnumeration;
 
     /**
      * The attributes that are mass assignable.
@@ -64,7 +63,6 @@ class User extends Authenticatable
     {
         return [
             'password' => 'hashed',
-            'user'     => Status::class,
         ];
     }
 }

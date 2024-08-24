@@ -1,7 +1,5 @@
 <?php
 
-use App\Modules\Core\Enumerations\User\Gender;
-use App\Modules\Core\Enumerations\User\Status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,8 +18,8 @@ return new class extends Migration {
             $table->string('lastname')->nullable();
             $table->string('password')->nullable();
             $table->string('avatar')->nullable();
-            $table->string('status')->default(Status::ACTIVE);
-            $table->string('gender')->default(Gender::UNKNOWN);
+            $table->string('status')->default(1);
+            $table->string('gender')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
