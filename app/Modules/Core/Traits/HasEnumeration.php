@@ -85,7 +85,7 @@ trait HasEnumeration
             ->toArray();
     }
 
-    public static function validationEnum(string $field, string $value): bool
+    public static function validationField(string $field, string $value): bool
     {
         $column = static::checkEnumField($field);
         if($column == null) {
