@@ -2,17 +2,9 @@
 
 namespace App\Modules\Core\Models;
 
-use App\Modules\Core\Enumerations\Product\Status;
-use App\Modules\Core\Enumerations\Product\Type;
-use App\Modules\Core\Enumerations\Product\Visibility;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Collection;
-
 /**
  * @property int $id
  * @property int $product_id
@@ -20,9 +12,9 @@ use Illuminate\Support\Collection;
  * @property string $sku
  * @property string $slug
  * @property string $description
- * @property Type $type
- * @property Status $status
- * @property Visibility $visibility
+ * @property int $type
+ * @property int $status
+ * @property int $visibility
  * @property int $store_id
  * @property bool $is_stock
  * @property int $quantity
@@ -62,11 +54,5 @@ class ProductIndex extends Model
         'categories',
         'images',
         'stores',
-    ];
-
-    protected $casts = [
-        'type'       => Type::class,
-        'status'     => Status::class,
-        'visibility' => Visibility::class,
     ];
 }

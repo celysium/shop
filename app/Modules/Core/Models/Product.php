@@ -2,9 +2,7 @@
 
 namespace App\Modules\Core\Models;
 
-use App\Modules\Core\Enumerations\Product\Status;
-use App\Modules\Core\Enumerations\Product\Type;
-use App\Modules\Core\Enumerations\Product\Visibility;
+use App\Modules\Core\Traits\HasEnumeration;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,9 +17,9 @@ use Illuminate\Support\Collection;
  * @property string $sku
  * @property string $slug
  * @property string $description
- * @property Type $type
- * @property Status $status
- * @property Visibility $visibility
+ * @property int $type
+ * @property int $status
+ * @property int $visibility
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Carbon $deleted_at
@@ -33,8 +31,7 @@ use Illuminate\Support\Collection;
  */
 class Product extends Model
 {
-    use  HasFactory;
-    use SoftDeletes;
+    use  HasFactory, SoftDeletes, HasEnumeration;
 
     protected $fillable = [
         'name',

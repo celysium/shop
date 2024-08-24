@@ -1,8 +1,5 @@
 <?php
 
-use App\Modules\Core\Enumerations\Product\Status;
-use App\Modules\Core\Enumerations\Product\Type;
-use App\Modules\Core\Enumerations\Product\Visibility;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,9 +17,9 @@ return new class extends Migration
             $table->string('sku')->unique()->fulltext();
             $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->unsignedTinyInteger('type')->default(TYPE::SIMPLE);
-            $table->unsignedTinyInteger('status')->default(STATUS::INACTIVE);
-            $table->boolean('visibility')->default(Visibility::INVISIBLE);
+            $table->unsignedTinyInteger('type')->default(0);
+            $table->unsignedTinyInteger('status')->default(0);
+            $table->boolean('visibility')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
