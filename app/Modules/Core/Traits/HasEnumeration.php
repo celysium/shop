@@ -66,6 +66,10 @@ trait HasEnumeration
         return collect($enumerations);
     }
 
+    /**
+     * @param string $field
+     * @return array
+     */
     public static function cases(string $field): array
     {
         return Enumeration::query()
@@ -76,6 +80,10 @@ trait HasEnumeration
             ->toArray();
     }
 
+    /**
+     * @param string $field
+     * @return array
+     */
     public static function enums(string $field): array
     {
         return Enumeration::query()
@@ -85,10 +93,15 @@ trait HasEnumeration
             ->toArray();
     }
 
+    /**
+     * @param string $field
+     * @param string $value
+     * @return bool
+     */
     public static function validationField(string $field, string $value): bool
     {
         $column = static::checkEnumField($field);
-        if($column == null) {
+        if ($column == null) {
             return false;
         }
         return Enumeration::query()
@@ -98,6 +111,10 @@ trait HasEnumeration
             ->exists();
     }
 
+    /**
+     * @param string $field
+     * @return string|null
+     */
     private static function checkEnumField(string $field): ?string
     {
         $enum = Enumeration::query()
