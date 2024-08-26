@@ -2,7 +2,6 @@
 
 namespace Core\Database\Migrations;
 
-use App\Modules\Core\Enumerations\Payment\Status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +13,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('customer_id')->nullable()->constrained('users');
             $table->foreignId('order_id')->nullable()->constrained('orders');
-            $table->unsignedTinyInteger('status')->default(Status::PENDING);
+            $table->unsignedTinyInteger('status')->default(0);
             $table->char('transaction_id')->nullable();
             $table->char('reference_id')->nullable();
             $table->unsignedBigInteger('amount');

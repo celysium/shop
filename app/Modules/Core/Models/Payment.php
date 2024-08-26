@@ -2,7 +2,7 @@
 
 namespace App\Modules\Core\Models;
 
-use App\Modules\Core\Enumerations\Payment\Status;
+use App\Modules\Core\Traits\HasEnumeration;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property int $customer_id
  * @property int $order_id
- * @property Status $status
+ * @property int $status
  * @property string $transaction_id
  * @property string $reference_id
  * @property int $amount
@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Payment extends Model
 {
-    use HasFactory;
+    use HasFactory, HasEnumeration;
 
     protected $fillable = [
         'customer_id',
@@ -38,7 +38,6 @@ class Payment extends Model
     ];
 
     protected $casts = [
-        'status'   => Status::class,
         'details'  => 'array',
         'response' => 'array',
     ];
