@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(WidgetEnumSeeder::class);
         $this->call(PaymentEnumSeeder::class);
         $this->call(OrderEnumSeeder::class);
+        $this->call(CartEnumSeeder::class);
     }
 }

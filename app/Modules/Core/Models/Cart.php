@@ -2,6 +2,7 @@
 
 namespace App\Modules\Core\Models;
 
+use App\Modules\Core\Traits\HasEnumeration;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $customer_id
  * @property int $address_id
  * @property int $delivery_id
+ * @property int status
  * @property array $items
  * @property array $details
  * @property int $total_promoted_price
@@ -26,14 +28,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Cart extends Model
 {
-    use HasFactory;
-    use HasUuids;
+    use HasFactory, HasUuids, HasEnumeration;
 
     protected $fillable = [
         'id',
         'customer_id',
         'address_id',
         'delivery_id',
+        'status',
         'items',
         'total_promoted_price',
         'total_discount_price',
