@@ -2,7 +2,7 @@
 
 namespace App\Modules\Core\Models;
 
-use App\Modules\Core\Enumerations\Order\Status;
+use App\Modules\Core\Traits\HasEnumeration;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,7 +31,7 @@ use Ramsey\Collection\Collection;
  */
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, HasEnumeration;
 
     protected $fillable = [
         'customer_id',
@@ -47,7 +47,6 @@ class Order extends Model
     ];
 
     protected $casts = [
-        'status'  => Status::class,
         'details' => 'array',
     ];
 
