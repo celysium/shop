@@ -2,7 +2,7 @@
 
 namespace App\Modules\Core\Repositories\PasswordToken;
 
-use App\Modules\Admin\Jobs\SendOTPJob;
+use App\Modules\Panel\Jobs\SendOTPJob;
 use App\Modules\Core\Models\PasswordToken;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
@@ -19,16 +19,16 @@ class PasswordTokenRepository implements PasswordTokenRepositoryInterface
         $passwordToken = PasswordToken::query()->where('username', $username)->first();
 
         if ($passwordToken) {
-            if (now()->lte($passwordToken->sent_at->addSeconds(env('VERIFICATION_RETRY_TIME', 60)))) {
+            if (now()->lte($passwordToken->sent_at->addSeconds(config('core.auth.retry_time')))) {
                 $passwordToken->query()->increment('tries');
                 throw new TooManyRequestsHttpException();
             }
-            if ($passwordToken->tries > env('VERIFICATION_MAX_RETRY', 10)) {
+            if ($passwordToken->tries > config('core.auth.max_retry')) {
                 $passwordToken->query()->increment('tries');
                 throw new TooManyRequestsHttpException();
             }
 
-            if (now()->gt($passwordToken->sent_at->addSeconds(env('VERIFICATION_CODE_LIFETIME', 600)))) {
+            if (now()->gt($passwordToken->sent_at->addSeconds(config('core.auth.code_lifetime')))) {
                 $passwordToken->token = $this->getToken();
             }
 
@@ -66,7 +66,7 @@ class PasswordTokenRepository implements PasswordTokenRepositoryInterface
                 'token' => __('validation.exists', ['attribute' => __('validation.attributes.password')])
             ]);
         }
-        if ($token != env('VERIFICATION_DEFAULT_CODE') || $passwordToken->token != $token) {
+        if ($passwordToken->token != $token) {
             throw ValidationException::withMessages(['token' => __('validation.exists', ['attribute' => __('validation.attributes.password')])]);
         }
         $passwordToken->delete();

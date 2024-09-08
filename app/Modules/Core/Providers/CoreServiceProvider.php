@@ -68,6 +68,8 @@ class CoreServiceProvider extends ServiceProvider
         $this->registerObserver();
         $this->registerFacades();
         $this->loadMigrations();
+        $this->registerConfig();
+        $this->publishConfig();
     }
 
 
@@ -111,5 +113,20 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->app->bind('store-repository', fn() => new StoreRepository());
         $this->app->bind('inventory-repository', fn() => new InventoryRepository());
+    }
+
+    public function registerConfig(): void
+    {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../Config/core.php', 'core'
+        );
+
+    }
+
+    public function publishConfig(): void
+    {
+        $this->publishes([
+            __DIR__ . '/../Config/core.php' => config_path('core.php'),
+        ], 'core-config');
     }
 }
