@@ -54,7 +54,7 @@ readonly class AuthenticationService implements AuthenticationServiceInterface
 
         return [
             'email'      => $parameters['email'],
-            'retry_time' => config('core.auth.retry_time'),
+            'retry_time' => setting('core.auth.retry_time', 60),
         ];
     }
 

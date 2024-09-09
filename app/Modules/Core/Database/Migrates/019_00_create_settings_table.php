@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('constants', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->string('key')->primary();
+            $table->string('type')->default('string');
             $table->string('value');
-            $table->timestamps();
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('constants');
+        Schema::dropIfExists('settings');
     }
 };

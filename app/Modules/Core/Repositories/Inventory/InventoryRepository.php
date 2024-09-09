@@ -32,8 +32,8 @@ class InventoryRepository extends BaseRepository implements InventoryRepositoryI
         /** @var Inventory $inventory */
         $inventory = $product->inventories()
             ->orderBy('is_stock', 'desc')
-            ->orderBy('promoted_price', 'desc')
-            ->orderBy('original_price', 'desc')
+            ->orderBy('promoted_price')
+            ->orderBy('original_price')
             ->first();
         return $inventory;
     }

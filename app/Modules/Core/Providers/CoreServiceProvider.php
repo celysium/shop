@@ -14,8 +14,8 @@ use App\Modules\Core\Repositories\Cart\CartRepository;
 use App\Modules\Core\Repositories\Cart\CartRepositoryInterface;
 use App\Modules\Core\Repositories\Category\CategoryRepository;
 use App\Modules\Core\Repositories\Category\CategoryRepositoryInterface;
-use App\Modules\Core\Repositories\Constant\ConstantRepository;
-use App\Modules\Core\Repositories\Constant\ConstantRepositoryInterface;
+use App\Modules\Core\Repositories\Setting\SettingRepository;
+use App\Modules\Core\Repositories\Setting\SettingRepositoryInterface;
 use App\Modules\Core\Repositories\Delivery\DeliveryRepository;
 use App\Modules\Core\Repositories\Delivery\DeliveryRepositoryInterface;
 use App\Modules\Core\Repositories\File\FileRepository;
@@ -48,14 +48,7 @@ use App\Modules\Core\Repositories\User\UserRepository;
 use App\Modules\Core\Repositories\User\UserRepositoryInterface;
 use App\Modules\Core\Repositories\Widget\WidgetRepository;
 use App\Modules\Core\Repositories\Widget\WidgetRepositoryInterface;
-use DirectoryIterator;
-use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
-use ReflectionClass;
-use SplFileInfo;
-use Symfony\Component\Finder\Finder;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -70,6 +63,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->loadMigrations();
         $this->registerConfig();
         $this->publishConfig();
+        $this->registerHelper();
     }
 
 
@@ -84,7 +78,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->bind(BannerRepositoryInterface::class, BannerRepository::class);
         $this->app->bind(CartRepositoryInterface::class, CartRepository::class);
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
-        $this->app->bind(ConstantRepositoryInterface::class, ConstantRepository::class);
+        $this->app->bind(SettingRepositoryInterface::class, SettingRepository::class);
         $this->app->bind(DeliveryRepositoryInterface::class, DeliveryRepository::class);
         $this->app->bind(FileRepositoryInterface::class, FileRepository::class);
         $this->app->bind(InventoryRepositoryInterface::class, InventoryRepository::class);
@@ -112,6 +106,7 @@ class CoreServiceProvider extends ServiceProvider
     private function registerFacades(): void
     {
         $this->app->bind('store-repository', fn() => new StoreRepository());
+        $this->app->bind('setting-repository', fn() => new SettingRepository());
         $this->app->bind('inventory-repository', fn() => new InventoryRepository());
     }
 
@@ -128,5 +123,10 @@ class CoreServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../Config/core.php' => config_path('core.php'),
         ], 'core-config');
+    }
+
+    public function registerHelper()
+    {
+        include __DIR__ . '/../Helper/setting.php';
     }
 }

@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property string $key
+ * @property string $type
  * @property bool|int|string|array $value
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class Constant extends Model
+class Setting extends Model
 {
     use HasFactory;
 
@@ -22,6 +23,7 @@ class Constant extends Model
 
     protected $fillable = [
         'key',
+        'type',
         'value',
     ];
 

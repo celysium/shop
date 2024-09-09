@@ -19,16 +19,16 @@ class PasswordTokenRepository implements PasswordTokenRepositoryInterface
         $passwordToken = PasswordToken::query()->where('username', $username)->first();
 
         if ($passwordToken) {
-            if (now()->lte($passwordToken->sent_at->addSeconds(config('core.auth.retry_time')))) {
+            if (now()->lte($passwordToken->sent_at->addSeconds(setting('core.auth.retry_time', 60)))) {
                 $passwordToken->query()->increment('tries');
                 throw new TooManyRequestsHttpException();
             }
-            if ($passwordToken->tries > config('core.auth.max_retry')) {
+            if ($passwordToken->tries > setting('core.auth.max_retry', 5)) {
                 $passwordToken->query()->increment('tries');
                 throw new TooManyRequestsHttpException();
             }
 
-            if (now()->gt($passwordToken->sent_at->addSeconds(config('core.auth.code_lifetime')))) {
+            if (now()->gt($passwordToken->sent_at->addSeconds(setting('core.auth.code_lifetime', 120)))) {
                 $passwordToken->token = $this->getToken();
             }
 
