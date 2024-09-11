@@ -3,8 +3,10 @@
 namespace App\Modules\Panel\Controllers;
 
 use App\Modules\Panel\Requests\Authentication\ChangePasswordRequest;
+use App\Modules\Panel\Requests\Authentication\CheckRequest;
 use App\Modules\Panel\Requests\Authentication\ForgetRequest;
 use App\Modules\Panel\Requests\Authentication\LoginRequest;
+use App\Modules\Panel\Requests\Authentication\OTPRequest;
 use App\Modules\Panel\Requests\Authentication\ResetRequest;
 use App\Modules\Panel\Requests\Authentication\SetPasswordRequest;
 use App\Modules\Panel\Requests\Authentication\UpdateRequest;
@@ -16,6 +18,20 @@ readonly class AuthenticationController
 {
     public function __construct(private AuthenticationServiceInterface $authenticationService)
     {
+    }
+
+    public function check(CheckRequest $request): JsonResponse
+    {
+        $data = $this->authenticationService->check($request->validated());
+
+        return Response::success($data);
+    }
+
+    public function otp(OTPRequest $request): JsonResponse
+    {
+        $data = $this->authenticationService->otp($request->validated());
+
+        return Response::success($data);
     }
 
     public function login(LoginRequest $request): JsonResponse
