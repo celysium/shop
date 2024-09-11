@@ -52,24 +52,18 @@ class PasswordTokenRepository implements PasswordTokenRepositoryInterface
     /**
      * @param string $username
      * @param string $token
-     * @return void
-     * @throws ValidationException
+     * @return bool
      */
-    public function check(string $username, string $token): void
+    public function check(string $username, string $token): bool
     {
         /** @var PasswordToken $passwordToken */
         $passwordToken = PasswordToken::query()
             ->where('username', $username)
             ->first();
-        if (!$passwordToken) {
-            throw ValidationException::withMessages([
-                'token' => __('validation.exists', ['attribute' => __('validation.attributes.password')])
-            ]);
+        if ($passwordToken == null || $passwordToken->token != $token) {
+            return false;
         }
-        if ($passwordToken->token != $token) {
-            throw ValidationException::withMessages(['token' => __('validation.exists', ['attribute' => __('validation.attributes.password')])]);
-        }
-        $passwordToken->delete();
+        return (bool) $passwordToken->delete();
     }
 
 }

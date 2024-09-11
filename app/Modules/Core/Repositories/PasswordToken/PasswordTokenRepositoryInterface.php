@@ -6,7 +6,6 @@ interface PasswordTokenRepositoryInterface
 {
     public function send(string $username): void;
 
-    public function check(string $username, string $token): void;
-
+    public function check(string $username, string $token): bool;
 
 }
