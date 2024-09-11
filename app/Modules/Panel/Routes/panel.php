@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix(config('panel.router.prefix'))->name('panel.')->group(function () {
 
     Route::name('auth.')->prefix('auth')->group(function () {
+        Route::post('check', [AuthenticationController::class, 'check'])->name('check');
+        Route::post('otp', [AuthenticationController::class, 'otp'])->name('otp');
         Route::post('login', [AuthenticationController::class, 'login'])->name('login');
         Route::post('forget', [AuthenticationController::class, 'forget'])->name('forget');
         Route::post('reset', [AuthenticationController::class, 'reset'])->name('reset');
