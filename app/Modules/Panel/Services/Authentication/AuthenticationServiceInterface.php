@@ -6,6 +6,10 @@ use App\Modules\Core\Models\User;
 
 interface AuthenticationServiceInterface
 {
+    public function check(array $parameters): array;
+
+    public function otp(array $parameters): array;
+
     public function login(array $parameters): array;
 
     public function logout(): void;

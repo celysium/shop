@@ -21,6 +21,50 @@ readonly class AuthenticationService implements AuthenticationServiceInterface
      * @param array $parameters
      * @return array
      */
+    public function check(array $parameters): array
+    {
+        /** @var User $user */
+        $user = $this->userRepository->findByField('mobile', $parameters['mobile']);
+
+        $this->userRepository->checkRole($user);
+
+        $this->passwordTokenRepository->send($parameters['mobile']);
+
+        return [
+            'mobile'       => $user->mobile,
+            'has_password' => (bool)$user->password,
+            'retry_time'   => setting('core.auth.retry_time', 60),
+        ];
+    }
+
+    /**
+     * @param array $parameters
+     * @return array
+     * @throws ValidationException
+     */
+    public function otp(array $parameters): array
+    {
+        $result = $this->passwordTokenRepository->check($parameters['mobile'], $parameters['token']);
+        if (!$result) {
+            throw ValidationException::withMessages([
+                'token' => __('validation.exists', ['attribute' => __('validation.attributes.password')])
+            ]);
+        }
+
+        /** @var User $user */
+        $user = $this->userRepository->findByField('mobile', $parameters['mobile']);
+
+        $this->userRepository->checkRole($user);
+
+        return [
+            'token' => $this->userRepository->getToken($user, 'panel'),
+        ];
+    }
+
+    /**
+     * @param array $parameters
+     * @return array
+     */
     public function login(array $parameters): array
     {
         /** @var User $user */
@@ -61,11 +105,16 @@ readonly class AuthenticationService implements AuthenticationServiceInterface
     /**
      * @param array $parameters
      * @return array
+     * @throws ValidationException
      */
     public function reset(array $parameters): array
     {
-        $this->passwordTokenRepository->check($parameters['email'], $parameters['token']);
-
+        $result = $this->passwordTokenRepository->check($parameters['email'], $parameters['token']);
+        if (!$result) {
+            throw ValidationException::withMessages([
+                'token' => __('validation.exists', ['attribute' => __('validation.attributes.password')])
+            ]);
+        }
         return [
             'token' => encrypt($parameters['email'])
         ];
