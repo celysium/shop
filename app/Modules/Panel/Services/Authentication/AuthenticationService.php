@@ -3,7 +3,7 @@
 namespace App\Modules\Panel\Services\Authentication;
 
 use App\Modules\Core\Models\User;
-use App\Modules\Core\Repositories\PasswordToken\PasswordTokenRepositoryInterface;
+use App\Modules\Core\Repositories\TemporaryPassword\TemporaryPasswordRepositoryInterface;
 use App\Modules\Core\Repositories\User\UserRepositoryInterface;
 use Illuminate\Validation\ValidationException;
 
@@ -11,7 +11,7 @@ readonly class AuthenticationService implements AuthenticationServiceInterface
 {
     public function __construct(
         private UserRepositoryInterface          $userRepository,
-        private PasswordTokenRepositoryInterface $passwordTokenRepository
+        private TemporaryPasswordRepositoryInterface $temporaryPasswordRepository
     )
     {
 
@@ -28,28 +28,22 @@ readonly class AuthenticationService implements AuthenticationServiceInterface
 
         $this->userRepository->checkRole($user);
 
-        $this->passwordTokenRepository->send($parameters['mobile']);
+        $this->temporaryPasswordRepository->sendCode($parameters['mobile']);
 
         return [
             'mobile'       => $user->mobile,
             'has_password' => (bool)$user->password,
-            'retry_time'   => setting('core.auth.retry_time', 60),
+            'retry_time'   => setting('auth.retry_time', 60),
         ];
     }
 
     /**
      * @param array $parameters
      * @return array
-     * @throws ValidationException
      */
     public function otp(array $parameters): array
     {
-        $result = $this->passwordTokenRepository->check($parameters['mobile'], $parameters['token']);
-        if (!$result) {
-            throw ValidationException::withMessages([
-                'token' => __('validation.exists', ['attribute' => __('validation.attributes.password')])
-            ]);
-        }
+        $this->temporaryPasswordRepository->checkCode($parameters['mobile'], $parameters['code']);
 
         /** @var User $user */
         $user = $this->userRepository->findByField('mobile', $parameters['mobile']);
@@ -94,27 +88,22 @@ readonly class AuthenticationService implements AuthenticationServiceInterface
      */
     public function forget(array $parameters): array
     {
-        $this->passwordTokenRepository->send($parameters['email']);
+        $this->temporaryPasswordRepository->sendCode($parameters['email']);
 
         return [
             'email'      => $parameters['email'],
-            'retry_time' => setting('core.auth.retry_time', 60),
+            'retry_time' => setting('auth.retry_time', 60),
         ];
     }
 
     /**
      * @param array $parameters
      * @return array
-     * @throws ValidationException
      */
     public function reset(array $parameters): array
     {
-        $result = $this->passwordTokenRepository->check($parameters['email'], $parameters['token']);
-        if (!$result) {
-            throw ValidationException::withMessages([
-                'token' => __('validation.exists', ['attribute' => __('validation.attributes.password')])
-            ]);
-        }
+        $this->temporaryPasswordRepository->checkCode($parameters['email'], $parameters['token']);
+
         return [
             'token' => encrypt($parameters['email'])
         ];

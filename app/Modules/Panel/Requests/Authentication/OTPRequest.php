@@ -11,7 +11,7 @@ class OTPRequest extends FormRequest
     {
         return [
             'mobile' => ['required', new Mobile(), 'exists:users,mobile'],
-            'token'   => ['required', 'string']
+            'code'   => ['required', 'string']
         ];
     }
 }

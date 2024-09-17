@@ -10,7 +10,7 @@ class SetPasswordRequest extends FormRequest
     {
         return [
             'password' => ['required', 'string'],
-            'token'    => ['required', 'string']
+            'code'    => ['required', 'string']
         ];
     }
 }

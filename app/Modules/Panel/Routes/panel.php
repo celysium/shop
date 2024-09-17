@@ -17,7 +17,7 @@ Route::prefix(config('panel.router.prefix'))->name('panel.')->group(function () 
         Route::post('set-password', [AuthenticationController::class, 'setPassword'])->name('set-password');
     });
 
-    Route::middleware(setting('core.auth.middleware', 'auth:sanctum'))->group(function () {
+    Route::middleware(setting('auth.middleware', 'auth:sanctum'))->group(function () {
 
         Route::name('auth.')->prefix('auth')->group(function () {
             Route::get('profile', [AuthenticationController::class, 'profile'])->name('profile');
