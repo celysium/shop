@@ -8,6 +8,6 @@ use Celysium\Helper\Contracts\BaseRepositoryInterface;
 
 interface InventoryRepositoryInterface extends BaseRepositoryInterface
 {
-    public function selectHead(Product $product): Inventory;
+    public function strategySelectHead(Product $product): Inventory;
 
 }

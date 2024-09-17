@@ -105,9 +105,7 @@ class CoreServiceProvider extends ServiceProvider
 
     private function registerFacades(): void
     {
-        $this->app->bind('store-repository', fn() => new StoreRepository());
         $this->app->bind('setting-repository', fn() => new SettingRepository());
-        $this->app->bind('inventory-repository', fn() => new InventoryRepository());
     }
 
     public function registerConfig(): void
