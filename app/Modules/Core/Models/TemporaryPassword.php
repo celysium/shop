@@ -9,22 +9,20 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property string $username
- * @property string $token
+ * @property string $code
  * @property int $tries
  * @property Carbon $sent_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class PasswordToken extends Model
+class TemporaryPassword extends Model
 {
 
     use HasFactory;
 
-    protected $table = 'password_tokens';
-
     protected $fillable = [
         'username',
-        'token',
+        'code',
         'tries',
         'sent_at',
     ];

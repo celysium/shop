@@ -26,7 +26,7 @@ return new class extends Migration {
 
         Schema::create('password_tokens', function (Blueprint $table) {
             $table->string('username')->primary();
-            $table->string('token');
+            $table->string('code');
             $table->unsignedTinyInteger('tries')->default(0);
             $table->timestamp('sent_at');
             $table->timestamps();
