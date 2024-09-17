@@ -2,10 +2,10 @@
 
 namespace App\Modules\Core\Models;
 
+use App\Modules\Core\Casts\File;
 use App\Modules\Core\Traits\HasEnumeration;
 use App\Modules\Core\Traits\HasFile;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,7 +20,7 @@ use Illuminate\Support\Collection;
  * @property int $id
  * @property string $name
  * @property string $icon
- *  @property string $banner
+ * @property string $banner
  * @property string $slug
  * @property string $description
  * @property int $status
@@ -41,7 +41,9 @@ class Category extends Model
     public const ROOT = 1;
 
     protected $casts = [
-        'path'    => 'array',
+        'path'   => 'array',
+        'icon'   => File::class,
+        'banner' => File::class,
     ];
 
     protected $fillable = [
@@ -71,20 +73,5 @@ class Category extends Model
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);
-    }
-
-    protected function icon(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => $this->fileUrl($value),
-            set: fn (mixed $value) => $this->fileStore($value, 'icon', $this->getOriginal('icon')),
-        );
-    }
-    protected function banner(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => $this->fileUrl($value),
-            set: fn (mixed $value) => $this->fileStore($value, 'banner', $this->getOriginal('banner')),
-        );
     }
 }

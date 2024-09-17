@@ -29,15 +29,15 @@ trait HasFile
     }
 
     /**
-     * @param StreamInterface|HttpFile|UploadedFile|string $file
+     * @param StreamInterface|HttpFile|UploadedFile $file
      * @param string|null $field
-     * @param string|null $replace
+     * @param bool $replace
      * @return string|null
      */
-    public function fileStore(StreamInterface|HttpFile|UploadedFile|string $file, string $field = null, string $replace = null): ?string
+    public function fileStore(StreamInterface|HttpFile|UploadedFile $file, string $field = null, bool $replace = true): ?string
     {
         if ($replace) {
-            $this->fileDelete($replace);
+            $this->fileDelete($this->getOriginal($field));
         }
 
         $id = Str::uuid();

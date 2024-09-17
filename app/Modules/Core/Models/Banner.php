@@ -2,9 +2,9 @@
 
 namespace App\Modules\Core\Models;
 
+use App\Modules\Core\Casts\File;
 use App\Modules\Core\Traits\HasEnumeration;
 use App\Modules\Core\Traits\HasFile;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -34,19 +34,15 @@ class Banner extends Model
         'status',
     ];
 
+    protected $casts = [
+        'image' => File::class,
+    ];
+
     /**
      * @return BelongsTo
      */
     public function slider(): BelongsTo
     {
         return $this->belongsTo(Slider::class);
-    }
-
-    protected function image(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => $this->fileUrl($value),
-            set: fn (mixed $value) => $this->fileStore($value, 'image', $this->getOriginal('image')),
-        );
     }
 }

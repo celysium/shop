@@ -2,10 +2,10 @@
 
 namespace App\Modules\Core\Models;
 
+use App\Modules\Core\Casts\File;
 use App\Modules\Core\Traits\HasEnumeration;
 use App\Modules\Core\Traits\HasFile;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -37,6 +37,10 @@ class Widget extends Model
         'banner',
         'status',
     ];
+    protected $casts = [
+        'icon'   => File::class,
+        'banner' => File::class,
+    ];
 
     /**
      * @return HasMany
@@ -48,21 +52,6 @@ class Widget extends Model
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'product_widget', 'widget_id','id')->withTimestamps();
-    }
-
-    protected function icon(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => $this->fileUrl($value),
-            set: fn (mixed $value) => $this->fileStore($value, 'icon', $this->getOriginal('icon')),
-        );
-    }
-    protected function banner(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => $this->fileUrl($value),
-            set: fn (mixed $value) => $this->fileStore($value, 'banner', $this->getOriginal('banner')),
-        );
+        return $this->belongsToMany(Product::class, 'product_widget', 'widget_id', 'id')->withTimestamps();
     }
 }
